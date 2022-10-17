@@ -1,5 +1,7 @@
 # Ultimate PyFoam
 
+https://doc.cfd.direct/openfoam/user-guide-v8/basic-file-format
+
 [![PyPI](https://img.shields.io/pypi/v/ultimate-pyfoam.svg)][pypi status]
 [![Status](https://img.shields.io/pypi/status/ultimate-pyfoam.svg)][pypi status]
 [![Python Version](https://img.shields.io/pypi/pyversions/ultimate-pyfoam)][pypi status]
