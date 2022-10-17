@@ -1,0 +1,14 @@
+{
+  "_output_dir": "/home/plasmasolve/data/plasmasolve/F5968_ultimatni_prirucka",
+  "_template": "cookiecutter-hypermodern-python/",
+  "author": "Andrej Rostek",
+  "copyright_year": "2022",
+  "development_status": "Development Status :: 1 - Planning",
+  "email": "rostek@mail.muni.cz",
+  "friendly_name": "Ultimate PyFoam",
+  "github_user": "ARostekMU",
+  "license": "MIT",
+  "package_name": "ultimate_pyfoam",
+  "project_name": "ultimate-pyfoam",
+  "version": "0.0.0"
+}
