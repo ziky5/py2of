@@ -5,7 +5,7 @@ def test_creatible():
 
 def test_units():
     a = OF_units(SIunit='kgm-1s-2')
-    assert type(a.values) is list
+    assert type(a.unit()) is list
 
 def test_str():
     A = OF_units(SIunit='kg2')
