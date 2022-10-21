@@ -1,2 +1,4 @@
 tasks:
-  - init: poetry install; pre-commit install
+  - init: |
+      poetry install
+      pre-commit install
