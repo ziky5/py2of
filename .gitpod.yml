@@ -1,4 +1,5 @@
 tasks:
   - init: |
       poetry install
+      source "$(poetry env info -p)/bin/activate"
       pre-commit install
