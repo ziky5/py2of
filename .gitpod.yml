@@ -3,4 +3,4 @@ tasks:
       poetry install
       source "$(poetry env info -p)/bin/activate"
       pre-commit install
-      git commit
+      pre-commit
