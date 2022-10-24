@@ -47,6 +47,21 @@ repos:
         language: system
         types_or: [cython, pyi, python]
         args: ["--filter-files"]
+      - id: mypy
+        name: mypy
+        entry: mypy
+        language: python
+        types: [python]
+        # use require_serial so that script
+        # is only called once per commit
+        require_serial: true
+        # Print the number of files as a sanity-check
+        verbose: true
+      - id: pytest
+        name: pytest
+        entry: pytest tests/
+        language: system
+        types: [python]
       - id: pyupgrade
         name: pyupgrade
         description: Automatically upgrade syntax for newer versions.
