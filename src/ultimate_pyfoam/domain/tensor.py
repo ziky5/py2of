@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 
+
 @dataclass()
-class OfTensor():
+class OfTensor:
     xx: float
     xy: float
     xz: float
@@ -12,7 +13,7 @@ class OfTensor():
     zy: float
     zz: float
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"""\
 (
     {self.xx} {self.xy} {self.xz}
@@ -20,6 +21,3 @@ class OfTensor():
     {self.zx} {self.zy} {self.zz}
 )
 """
-
-
-
