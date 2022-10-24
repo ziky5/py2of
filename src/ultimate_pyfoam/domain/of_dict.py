@@ -1,18 +1,23 @@
+from collections import Mapping
 from collections import UserDict
 from dataclasses import dataclass
+from textwrap import indent
 
 
 @dataclass(init=False)
 class OfDict(UserDict):
     pass
 
+    def __str__(self) -> str:
+        string = ""
 
-#    def __str__(self):
-#        string = f"{self.name}"
-#        string += "\n{"
-#
-#        for key, value in self.content.items():
-#            string += f"\n    {key} {value};"
-#
-#        string += "\n}"
-#        return string
+        for key, value in self.data.items():
+            if isinstance(value, OfDict):
+                string += f"{key}\n"
+                string += "{\n"
+                string += indent(str(value), "    ")
+                string += "}\n"
+            else:
+                string += f"{key} {value};\n"
+
+        return string
