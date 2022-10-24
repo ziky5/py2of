@@ -1,12 +1,11 @@
-from collections import Mapping
 from collections import UserDict
 from dataclasses import dataclass
 from textwrap import indent
 
 
 @dataclass(init=False)
-class OfDict(UserDict):
-    pass
+class OfDict(UserDict[str, str]):
+    """muj string!"""
 
     def __str__(self) -> str:
         string = ""
