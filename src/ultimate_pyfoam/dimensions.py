@@ -1,11 +1,12 @@
 from dataclasses import dataclass
 from typing import List
 
-@dataclass()
-class OfDimensions():
-    content: List
 
-    def __str__(self):
+@dataclass()
+class OfDimensions:
+    content: List[int]
+
+    def __str__(self) -> str:
         if len(self.content) != 7:
             raise Exception()
 
