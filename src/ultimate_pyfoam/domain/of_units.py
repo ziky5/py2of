@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 
+
 @dataclass()
-class OF_units():
+class OfUnits:
     kg: int = 0
     m: int = 0
     s: int = 0
@@ -10,6 +11,6 @@ class OF_units():
     A: int = 0
     cd: int = 0
 
-    def __str__(self):
+    def __str__(self) -> str:
         string = f"[{self.kg} {self.m} {self.s} {self.K} {self.mol} {self.A} {self.cd}]"
         return string
