@@ -3,6 +3,6 @@ tasks:
       pyenv install 3.10.7
       poetry env use /workspace/.pyenv_mirror/fakeroot/versions/3.10.7/bin/python
       poetry install
+      poetry run pre-commit install
+      poetry run pre-commit
       source "$(poetry env info -p)/bin/activate"
-      pre-commit install
-      pre-commit
