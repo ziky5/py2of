@@ -2,7 +2,7 @@
 import pytest
 from click.testing import CliRunner
 
-from ultimate_pyfoam import __main__
+from src.ultimate_pyfoam import __main__
 
 
 @pytest.fixture

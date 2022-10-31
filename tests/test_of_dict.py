@@ -1,4 +1,4 @@
-from ultimate_pyfoam.domain.of_dict import OfDict
+from src.ultimate_pyfoam.domain.of_dict import OfDict
 
 
 dct = {"FoamFile": OfDict({"version": 2.0})}

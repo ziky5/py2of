@@ -11,7 +11,7 @@ class OfList:
 
     def __str__(self) -> str:
         string = f"{self.name}"
-        string += "\t("
-        string += " ".join([str(i) for i in self.elements])
+        string += "\tList[int]\n" + str(self.num_of_elements) + "\n(\n"
+        string += "\t[" + ",".join([str(i) for i in self.elements]) + "]"
         string += "\n);"
         return string
