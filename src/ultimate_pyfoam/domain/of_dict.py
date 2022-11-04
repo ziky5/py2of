@@ -4,7 +4,7 @@ from textwrap import indent
 
 
 @dataclass(init=False)
-class OfDict(UserDict[str, "str | OfDict"]):
+class OfDict(UserDict[str, "str | OfDict | float | int"]):
     """OfDict."""
 
     def __str__(self) -> str:

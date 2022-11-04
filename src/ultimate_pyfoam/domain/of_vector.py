@@ -8,4 +8,4 @@ class OfVector:
     z: float
 
     def __str__(self) -> str:
-        return f"({self.x} {self.y} {self.z})\n"
+        return f"({self.x} {self.y} {self.z})"

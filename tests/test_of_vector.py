@@ -13,5 +13,5 @@ def test_vector_printable() -> None:
 
 def test_vector_prints_correctly() -> None:
     vec = OfVector(1.0, 1.1, 1.2)
-    test_output = "(1.0 1.1 1.2)\n"
+    test_output = "(1.0 1.1 1.2)"
     assert test_output == str(vec)

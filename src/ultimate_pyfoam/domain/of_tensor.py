@@ -19,5 +19,5 @@ class OfTensor:
     {self.xx} {self.xy} {self.xz}
     {self.yx} {self.yy} {self.yz}
     {self.zx} {self.zy} {self.zz}
-)
+)\
 """
