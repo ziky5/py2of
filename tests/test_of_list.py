@@ -1,6 +1,7 @@
 import pytest
 
 from ultimate_pyfoam.domain.of_list import OfList
+from ultimate_pyfoam.domain.of_tensor import OfTensor
 from ultimate_pyfoam.domain.of_vector import OfVector
 
 
@@ -35,7 +36,33 @@ listName\tList<vector>
 (1.0 4.0 2.5)
 );\
 """
-    print(str(array))
+    assert str(array) == expected
+
+
+def test_print_tensor() -> None:
+    array = OfList(
+        "listName",
+        [
+            OfTensor(xx=1.1, xy=5.0, xz=0.0, yx=2, yy=3, yz=15, zx=0, zy=150, zz=3.876),
+            OfTensor(xx=0, xy=0, xz=0, yx=0, yy=0, yz=0, zx=0, zy=0, zz=0),
+        ],
+    )
+    expected = """\
+listName\tList<tensor>
+2
+(
+(
+    1.1 5.0 0.0
+    2 3 15
+    0 150 3.876
+)
+(
+    0 0 0
+    0 0 0
+    0 0 0
+)
+);\
+"""
     assert str(array) == expected
 
 

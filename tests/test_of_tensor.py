@@ -15,6 +15,6 @@ def test_tensor_to_str() -> None:
     1 0 0
     0 1 0
     0 0 1
-)
+)\
 """
     )
