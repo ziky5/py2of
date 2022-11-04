@@ -10,7 +10,8 @@ def test_tensor_to_str() -> None:
 
     assert (
         string
-        == """(
+        == """\
+(
     1 0 0
     0 1 0
     0 0 1
