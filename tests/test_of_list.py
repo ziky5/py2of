@@ -2,15 +2,18 @@ from ultimate_pyfoam.domain.of_list import OfList
 
 
 def test_create() -> None:
-    OfList("list", [], [1, 2, 3])
+    OfList("listName", [], [1, 2, 3])
 
 
 def test_print() -> None:
-    array = OfList("list", [], [1, 2, 3])
-    expected = """list\tList[int]
+    array = OfList("listName", [], [5, 12, 4])
+    expected = """\
+listName\tList[int]
 3
 (
-\t[1,2,3]
+5
+12
+4
 );\
 """
     print(str(array))
