@@ -1,6 +1,9 @@
 tasks:
   - init: |
+      pyenv install 3.10.7
+      poetry env use /workspace/.pyenv_mirror/fakeroot/versions/3.10.7/bin/python
+      /home/gitpod/.pyenv/versions/3.10.7/bin/python -m pip install -U black mypy
       poetry install
-      source "$(poetry env info -p)/bin/activate"
-      pre-commit install
-      pre-commit
+      poetry run pre-commit install
+      poetry run pre-commit
+      poetry shell
