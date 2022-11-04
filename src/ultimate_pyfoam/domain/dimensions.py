@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 
 @dataclass()
-class OfUnits:
+class Dimensions:
     kg: int = 0
     m: int = 0
     s: int = 0
