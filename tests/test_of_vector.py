@@ -1,4 +1,4 @@
-from ultimate_pyfoam.domain.vector import OfVector
+from ultimate_pyfoam.domain.of_vector import OfVector
 
 
 def test_vector_init() -> None:

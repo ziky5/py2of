@@ -1,4 +1,4 @@
-from ultimate_pyfoam.domain.tensor import OfTensor
+from ultimate_pyfoam.domain.of_tensor import OfTensor
 
 
 def test_create_tensor() -> None:
@@ -10,8 +10,7 @@ def test_tensor_to_str() -> None:
 
     assert (
         string
-        == """\
-(
+        == """(
     1 0 0
     0 1 0
     0 0 1
