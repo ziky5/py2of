@@ -1,4 +1,4 @@
-from src.ultimate_pyfoam.domain.of_list import OfList
+from ultimate_pyfoam.domain.of_list import OfList
 
 
 def test_create() -> None:
