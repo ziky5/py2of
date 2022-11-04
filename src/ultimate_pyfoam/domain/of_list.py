@@ -1,16 +1,18 @@
 from dataclasses import dataclass
 from typing import List
 
+from ultimate_pyfoam.domain.of_tensor import OfTensor
+from ultimate_pyfoam.domain.of_vector import OfVector
+
 
 @dataclass()
 class OfList:
     name: str
-    element_type: List[int]
-    elements: List[int]
+    elements: List[int | float | OfVector | OfTensor]
 
     def __str__(self) -> str:
         string = f"{self.name}"
-        string += f"\tList[int]\n{len(self)}\n(\n"
+        string += f"\tList<{self.element_type}>\n{len(self)}\n(\n"
         for i in self.elements:
             string += f"{i}\n"
         string += ");"
@@ -18,3 +20,15 @@ class OfList:
 
     def __len__(self) -> int:
         return len(self.elements)
+
+    @property
+    def element_type(self) -> str:
+        python_element_type = type(self.elements[0])
+        if python_element_type == int or python_element_type == float:
+            return "scalar"
+        elif python_element_type == OfVector:
+            return "vector"
+        elif python_element_type == OfTensor:
+            return "tensor"
+        else:
+            raise TypeError()
