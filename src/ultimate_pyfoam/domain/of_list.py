@@ -23,7 +23,9 @@ class OfList:
 
     @property
     def element_type(self) -> str:
-        python_element_type = type(self.elements[0])
+        python_element_type = type(
+            self.elements[0]
+        )  # TODO: make sure all the elements are  the same type (__post_init___?)
         if python_element_type == int or python_element_type == float:
             return "scalar"
         elif python_element_type == OfVector:
