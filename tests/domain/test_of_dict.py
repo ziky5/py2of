@@ -1,3 +1,6 @@
+from collections import UserDict
+
+from ultimate_pyfoam.domain.dimensions import Dimensions
 from ultimate_pyfoam.domain.of_dict import OfDict
 
 
@@ -58,5 +61,51 @@ solvers
         blah 1000;
     }
 }
+"""
+    assert output == string
+
+
+def test_dimensions_as_value() -> None:
+    output = str(OfDict({"dimensions": Dimensions()}))
+    string = """\
+dimensions [0 0 0 0 0 0 0];
+"""
+    assert output == string
+
+
+def test_user_dict() -> None:
+    output = str(OfDict({"FoamFile": UserDict({"class": "dictionary"})}))
+    string = """\
+FoamFile
+{
+    class dictionary;
+}
+"""
+    assert output == string
+
+
+def test_python_dict() -> None:
+    dct = {
+        "FoamFile": {
+            "format": "ascii",
+            "class": "dictionary",
+            "location": '"system"',
+            "object": "controlDict",
+        },
+        "application": "scalarTransportFoam",
+        "startFrom": "startTime",
+    }
+    output = str(OfDict(dct))
+
+    string = """\
+FoamFile
+{
+    format ascii;
+    class dictionary;
+    location "system";
+    object controlDict;
+}
+application scalarTransportFoam;
+startFrom startTime;
 """
     assert output == string

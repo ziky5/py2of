@@ -20,7 +20,6 @@ listName\tList<scalar>
 4
 );\
 """
-    print(str(array))
     assert str(array) == expected
 
 
