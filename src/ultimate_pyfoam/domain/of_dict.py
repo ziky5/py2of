@@ -18,10 +18,10 @@ class OfDict(
         string = ""
 
         for key, value in self.data.items():
-            if isinstance(value, OfDict):
+            if isinstance(value, Mapping):
                 string += f"{key}\n"
                 string += "{\n"
-                string += indent(str(value), "    ")
+                string += indent(str(OfDict(value)), "    ")
                 string += "}\n"
             else:
                 string += f"{key} {value};\n"
