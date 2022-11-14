@@ -85,7 +85,7 @@ FoamFile
 
 
 def test_python_dict() -> None:
-    dct = {
+    python_dct = {
         "FoamFile": {
             "format": "ascii",
             "class": "dictionary",
@@ -95,7 +95,7 @@ def test_python_dict() -> None:
         "application": "scalarTransportFoam",
         "startFrom": "startTime",
     }
-    output = str(OfDict(dct))
+    output = str(OfDict(python_dct))
 
     string = """\
 FoamFile
