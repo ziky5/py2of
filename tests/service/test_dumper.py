@@ -41,7 +41,7 @@ def test_overwrite_when_specified(tmp_path: Path) -> None:
     d.write()
 
 
-def test_create_cannot_write_to_directory(tmp_path: Path) -> None:
+def test_create_directory_in_path_if_nonexistent(tmp_path: Path) -> None:
     d = Dumper(path=tmp_path / "constant/dumpedFile", content=OfDict())
     d.write()
 
