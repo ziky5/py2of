@@ -60,3 +60,13 @@ def test_cannot_write_to_directory(tmp_path: Path) -> None:
 
     with pytest.raises(IsADirectoryError):
         d.write(path=tmp_path)
+
+def test_basic_python_dict(tmp_path: Path) -> None:
+    string = "application scalarTransportFoam;"
+    dct = {"application": "scalarTransportFoam"}
+
+    d = Dumper(content=dct)
+    d.write(path=tmp_path / "controlDict")
+
+    written_string = Path(tmp_path / "controlDict").read_text().strip()
+    assert string == written_string
