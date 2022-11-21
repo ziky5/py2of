@@ -61,7 +61,8 @@ def test_cannot_write_to_directory(tmp_path: Path) -> None:
     with pytest.raises(IsADirectoryError):
         d.write(path=tmp_path)
 
-def test_basic_python_dict(tmp_path: Path) -> None:
+
+def test_content_is_basic_python_dict(tmp_path: Path) -> None:
     string = "application scalarTransportFoam;"
     dct = {"application": "scalarTransportFoam"}
 
