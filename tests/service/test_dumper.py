@@ -59,7 +59,7 @@ def test_cannot_write_to_directory(tmp_path: Path) -> None:
     d = Dumper(content=OfDict())
 
     with pytest.raises(IsADirectoryError):
-        d.write(path=tmp_path)
+        d.write(path=tmp_path, overwrite=True)
 
 
 def test_content_is_basic_python_dict(tmp_path: Path) -> None:
