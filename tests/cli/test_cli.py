@@ -15,6 +15,7 @@ def test_dump_cli(tmp_path: Path) -> None:
 
         result = runner.invoke(dump)
         assert result.exit_code == 0
-        assert (Path(temp_dir) / "of_case").exists()
-        assert (Path(temp_dir) / "of_case" / "constant").exists()
-        assert (Path(temp_dir) / "of_case" / "system").exists()
+        assert (
+            Path(temp_dir) / "of_case" / "constant" / "turbulenceProperties"
+        ).exists()
+        assert (Path(temp_dir) / "of_case" / "system" / "controlDict").exists()
