@@ -8,7 +8,7 @@
   "friendly_name": "Ultimate PyFoam",
   "github_user": "ARostekMU",
   "license": "MIT",
-  "package_name": "ultimate_pyfoam",
-  "project_name": "ultimate-pyfoam",
+  "package_name": "py2of",
+  "project_name": "py2of",
   "version": "0.0.0"
 }

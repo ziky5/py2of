@@ -5,7 +5,7 @@ from textwrap import indent
 from typing import Any
 from typing import Collection
 
-from ultimate_pyfoam.domain.dimensions import Dimensions
+from py2of.domain.dimensions import Dimensions
 
 
 @dataclass(init=False)

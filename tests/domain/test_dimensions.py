@@ -1,4 +1,4 @@
-from ultimate_pyfoam.domain.dimensions import Dimensions
+from py2of.domain.dimensions import Dimensions
 
 
 def test_creatable() -> None:

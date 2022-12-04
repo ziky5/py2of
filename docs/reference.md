@@ -1,8 +1,8 @@
 # Reference
 
-## ultimate_pyfoam
+## py2of
 
 ```{eval-rst}
-.. automodule:: ultimate_pyfoam
+.. automodule:: py2of
    :members:
 ```

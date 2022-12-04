@@ -1,1 +1,1 @@
-"""Test suite for the ultimate_pyfoam package."""
+"""Test suite for the py2of package."""

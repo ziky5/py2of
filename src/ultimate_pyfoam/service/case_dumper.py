@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any
 from typing import Mapping
 
-from ultimate_pyfoam.service.dumper import Dumper
+from py2of.service.dumper import Dumper
 
 
 @dataclass()

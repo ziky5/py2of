@@ -1,7 +1,7 @@
 from collections import UserDict
 
-from ultimate_pyfoam.domain.dimensions import Dimensions
-from ultimate_pyfoam.domain.of_dict import OfDict
+from py2of.domain.dimensions import Dimensions
+from py2of.domain.of_dict import OfDict
 
 
 dct = {"FoamFile": OfDict({"version": 2.0})}

@@ -1,4 +1,4 @@
-from ultimate_pyfoam.domain.of_tensor import OfTensor
+from py2of.domain.of_tensor import OfTensor
 
 
 def test_create_tensor() -> None:

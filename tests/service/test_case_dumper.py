@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from ultimate_pyfoam.domain.dimensions import Dimensions
-from ultimate_pyfoam.service.case_dumper import CaseDumper
+from py2of.domain.dimensions import Dimensions
+from py2of.service.case_dumper import CaseDumper
 
 
 def test_init() -> None:

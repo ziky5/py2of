@@ -19,5 +19,5 @@ reference
 contributing
 Code of Conduct <codeofconduct>
 License <license>
-Changelog <https://github.com/ARostekMU/ultimate-pyfoam/releases>
+Changelog <https://github.com/ARostekMU/py2of/releases>
 ```

@@ -1,19 +1,19 @@
 [tool.poetry]
-name = "ultimate-pyfoam"
+name = "py2of"
 version = "0.0.0"
 description = "Ultimate PyFoam"
-authors = ["Andrej Rostek <rostek@mail.muni.cz>"]
+authors = ["Petr Zikan <zikan.p@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/ARostekMU/ultimate-pyfoam"
-repository = "https://github.com/ARostekMU/ultimate-pyfoam"
-documentation = "https://ultimate-pyfoam.readthedocs.io"
+homepage = "https://github.com/ziky5/py2of"
+repository = "https://github.com/ziky5/py2of"
+documentation = "https://py2of.readthedocs.io"
 classifiers = [
     "Development Status :: 1 - Planning",
 ]
 
 [tool.poetry.urls]
-Changelog = "https://github.com/ARostekMU/ultimate-pyfoam/releases"
+Changelog = "https://github.com/ziky5/py2of/releases"
 
 [tool.poetry.dependencies]
 python = "^3.7"
@@ -46,7 +46,7 @@ xdoctest = {extras = ["colors"], version = ">=0.15.10"}
 myst-parser = {version = ">=0.16.1"}
 
 [tool.poetry.scripts]
-ultimate-pyfoam = "ultimate_pyfoam.__main__:main"
+py2of = "py2of.__main__:main"
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
@@ -54,7 +54,7 @@ tests = ["tests", "*/tests"]
 
 [tool.coverage.run]
 branch = true
-source = ["ultimate_pyfoam", "tests"]
+source = ["py2of", "tests"]
 
 [tool.coverage.report]
 show_missing = true

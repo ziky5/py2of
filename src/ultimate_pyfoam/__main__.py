@@ -5,7 +5,7 @@ from pathlib import Path
 
 import click
 
-from ultimate_pyfoam.service.case_dumper import CaseDumper
+from py2of.service.case_dumper import CaseDumper
 
 
 @click.group()
@@ -24,4 +24,4 @@ def dump(content_file: Path, dump_dir: Path) -> None:
 
 
 if __name__ == "__main__":
-    main(prog_name="ultimate-pyfoam")  # pragma: no cover
+    main(prog_name="py2of")  # pragma: no cover

@@ -1,7 +1,7 @@
 # Usage
 
 ```{eval-rst}
-.. click:: ultimate_pyfoam.__main__:main
-    :prog: ultimate-pyfoam
+.. click:: py2of.__main__:main
+    :prog: py2of
     :nested: full
 ```

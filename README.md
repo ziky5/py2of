@@ -2,22 +2,22 @@
 
 https://doc.cfd.direct/openfoam/user-guide-v8/basic-file-format
 
-[![PyPI](https://img.shields.io/pypi/v/ultimate-pyfoam.svg)][pypi status]
-[![Status](https://img.shields.io/pypi/status/ultimate-pyfoam.svg)][pypi status]
-[![Python Version](https://img.shields.io/pypi/pyversions/ultimate-pyfoam)][pypi status]
-[![License](https://img.shields.io/pypi/l/ultimate-pyfoam)][license]
+[![PyPI](https://img.shields.io/pypi/v/py2of.svg)][pypi status]
+[![Status](https://img.shields.io/pypi/status/py2of.svg)][pypi status]
+[![Python Version](https://img.shields.io/pypi/pyversions/py2of)][pypi status]
+[![License](https://img.shields.io/pypi/l/py2of)][license]
 
-[![Read the documentation at https://ultimate-pyfoam.readthedocs.io/](https://img.shields.io/readthedocs/ultimate-pyfoam/latest.svg?label=Read%20the%20Docs)][read the docs]
-[![Tests](https://github.com/ARostekMU/ultimate-pyfoam/workflows/Tests/badge.svg)][tests]
-[![Codecov](https://codecov.io/gh/ARostekMU/ultimate-pyfoam/branch/main/graph/badge.svg)][codecov]
+[![Read the documentation at https://py2of.readthedocs.io/](https://img.shields.io/readthedocs/py2of/latest.svg?label=Read%20the%20Docs)][read the docs]
+[![Tests](https://github.com/ARostekMU/py2of/workflows/Tests/badge.svg)][tests]
+[![Codecov](https://codecov.io/gh/ARostekMU/py2of/branch/main/graph/badge.svg)][codecov]
 
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)][pre-commit]
 [![Black](https://img.shields.io/badge/code%20style-black-000000.svg)][black]
 
-[pypi status]: https://pypi.org/project/ultimate-pyfoam/
-[read the docs]: https://ultimate-pyfoam.readthedocs.io/
-[tests]: https://github.com/ARostekMU/ultimate-pyfoam/actions?workflow=Tests
-[codecov]: https://app.codecov.io/gh/ARostekMU/ultimate-pyfoam
+[pypi status]: https://pypi.org/project/py2of/
+[read the docs]: https://py2of.readthedocs.io/
+[tests]: https://github.com/ARostekMU/py2of/actions?workflow=Tests
+[codecov]: https://app.codecov.io/gh/ARostekMU/py2of
 [pre-commit]: https://github.com/pre-commit/pre-commit
 [black]: https://github.com/psf/black
 
@@ -34,7 +34,7 @@ https://doc.cfd.direct/openfoam/user-guide-v8/basic-file-format
 You can install _Ultimate PyFoam_ via [pip] from [PyPI]:
 
 ```console
-$ pip install ultimate-pyfoam
+$ pip install py2of
 ```
 
 ## Usage
@@ -63,14 +63,14 @@ This project was generated from [@cjolowicz]'s [Hypermodern Python Cookiecutter]
 [@cjolowicz]: https://github.com/cjolowicz
 [pypi]: https://pypi.org/
 [hypermodern python cookiecutter]: https://github.com/cjolowicz/cookiecutter-hypermodern-python
-[file an issue]: https://github.com/ARostekMU/ultimate-pyfoam/issues
+[file an issue]: https://github.com/ARostekMU/py2of/issues
 [pip]: https://pip.pypa.io/
 
 <!-- github-only -->
 
-[license]: https://github.com/ARostekMU/ultimate-pyfoam/blob/main/LICENSE
-[contributor guide]: https://github.com/ARostekMU/ultimate-pyfoam/blob/main/CONTRIBUTING.md
-[command-line reference]: https://ultimate-pyfoam.readthedocs.io/en/latest/usage.html
+[license]: https://github.com/ARostekMU/py2of/blob/main/LICENSE
+[contributor guide]: https://github.com/ARostekMU/py2of/blob/main/CONTRIBUTING.md
+[command-line reference]: https://py2of.readthedocs.io/en/latest/usage.html
 
 ## Python virtual environment cheatsheet
 

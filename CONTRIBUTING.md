@@ -12,9 +12,9 @@ Here is a list of important resources for contributors:
 - [Code of Conduct]
 
 [mit license]: https://opensource.org/licenses/MIT
-[source code]: https://github.com/ARostekMU/ultimate-pyfoam
-[documentation]: https://ultimate-pyfoam.readthedocs.io/
-[issue tracker]: https://github.com/ARostekMU/ultimate-pyfoam/issues
+[source code]: https://github.com/ARostekMU/py2of
+[documentation]: https://py2of.readthedocs.io/
+[issue tracker]: https://github.com/ARostekMU/py2of/issues
 
 ## How to report a bug
 
@@ -54,7 +54,7 @@ or the command-line interface:
 
 ```console
 $ poetry run python
-$ poetry run ultimate-pyfoam
+$ poetry run py2of
 ```
 
 [poetry]: https://python-poetry.org/
@@ -108,7 +108,7 @@ $ nox --session=pre-commit -- install
 It is recommended to open an issue before starting work on anything.
 This will allow a chance to talk it over with the owners and validate your approach.
 
-[pull request]: https://github.com/ARostekMU/ultimate-pyfoam/pulls
+[pull request]: https://github.com/ARostekMU/py2of/pulls
 
 <!-- github-only -->
 

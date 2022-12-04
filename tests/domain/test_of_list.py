@@ -1,8 +1,8 @@
 import pytest
 
-from ultimate_pyfoam.domain.of_list import OfList
-from ultimate_pyfoam.domain.of_tensor import OfTensor
-from ultimate_pyfoam.domain.of_vector import OfVector
+from py2of.domain.of_list import OfList
+from py2of.domain.of_tensor import OfTensor
+from py2of.domain.of_vector import OfVector
 
 
 def test_create() -> None:

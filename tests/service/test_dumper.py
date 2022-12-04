@@ -2,8 +2,8 @@ from pathlib import Path
 
 import pytest
 
-from ultimate_pyfoam.domain.of_dict import OfDict
-from ultimate_pyfoam.service.dumper import Dumper
+from py2of.domain.of_dict import OfDict
+from py2of.service.dumper import Dumper
 
 
 def test_init(tmp_path: Path) -> None:

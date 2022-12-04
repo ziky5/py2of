@@ -3,7 +3,7 @@ from pathlib import Path
 
 from click.testing import CliRunner
 
-from ultimate_pyfoam.__main__ import dump
+from py2of.__main__ import dump
 
 
 def test_dump_cli(tmp_path: Path) -> None:
