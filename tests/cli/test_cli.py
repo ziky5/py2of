@@ -13,7 +13,7 @@ def test_dump_cli(tmp_path: Path) -> None:
             f"{Path(__file__).parent / 'case.py'}", Path(temp_dir)
         )  # copies case.py to test directory
 
-        result = runner.invoke(dump)
+        result = runner.invoke(dump, [str(Path(temp_dir) / "case.py")])
         assert result.exit_code == 0
         assert (
             Path(temp_dir) / "of_case" / "constant" / "turbulenceProperties"
