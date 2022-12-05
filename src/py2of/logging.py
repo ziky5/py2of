@@ -1,4 +1,5 @@
 import logging
+import logging.config
 import os
 from pathlib import Path
 
@@ -42,7 +43,7 @@ def setup_logging(
         with open(path) as f:
             try:
                 config = yaml.safe_load(f.read())
-                logging.config.dictConfig(config)  # type: ignore
+                logging.config.dictConfig(config)
                 # coloredlogs.install()
             except Exception as e:
                 print(e)
