@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "py2of"
-version = "0.0.0"
+version = "0.1.0"
 description = "Ultimate PyFoam"
 authors = ["Petr Zikan <zikan.p@gmail.com>"]
 license = "MIT"
