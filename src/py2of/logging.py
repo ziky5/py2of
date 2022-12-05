@@ -36,7 +36,7 @@ def setup_logging(
 
         if path is None:
             # there is no env var either! Use the default path...
-            path = pkg_resources.resource_filename("matsight_sdk_logging", default_path)
+            path = pkg_resources.resource_filename("py2of", default_path)
 
     if os.path.exists(path):
         with open(path) as f:

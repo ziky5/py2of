@@ -1,4 +1,5 @@
 """Command-line interface."""
+import logging
 import sys
 from importlib import import_module
 from pathlib import Path
@@ -6,7 +7,12 @@ from typing import Any
 
 import click
 
+from py2of.logging import set_logger
+from py2of.logging import setup_logging
 from py2of.service.case_dumper import CaseDumper
+
+
+logger = logging.getLogger(__name__)
 
 
 class ImportModule:
@@ -14,10 +20,12 @@ class ImportModule:
         self.path = path
 
     def __enter__(self) -> Any:
+        logger.debug(f"inserting path ({self.path.parent}) into sys.path")
         sys.path.insert(0, str(self.path.parent))
         return import_module(self.path.stem)
 
     def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
+        logger.debug(f"removing path ({sys.path[0]}) from sys.path")
         del sys.path[0]
 
 
@@ -38,6 +46,8 @@ class ImportModule:
 )
 def main(log: str, logging_yaml: str | Path) -> None:
     """Ultimate PyFoam!!!."""
+    setup_logging(path=logging_yaml)
+    set_logger(log=log)
 
 
 @main.command()
