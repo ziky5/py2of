@@ -23,7 +23,20 @@ class ImportModule:
 
 @click.group()
 @click.version_option()
-def main() -> None:
+@click.option(
+    "--log",
+    type=click.Choice(["debug", "info", "warning", "error"], case_sensitive=False),
+    help="Sets logging level.",
+    default="info",
+    show_default=True,
+)
+@click.option(
+    "--logging-yaml",
+    type=click.Path(exists=True),
+    default=None,
+    help="Path to alternative logging yaml to be used.",
+)
+def main(log: str, logging_yaml: str | Path) -> None:
     """Ultimate PyFoam!!!."""
 
 

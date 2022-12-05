@@ -11,6 +11,7 @@ documentation = "https://py2of.readthedocs.io"
 classifiers = [
     "Development Status :: 1 - Planning",
 ]
+include=["src/py2of/logging.yaml"]
 
 [tool.poetry.urls]
 Changelog = "https://github.com/ziky5/py2of/releases"
@@ -18,6 +19,7 @@ Changelog = "https://github.com/ziky5/py2of/releases"
 [tool.poetry.dependencies]
 python = "^3.7"
 click = ">=8.0.1"
+coloredlogs = "^15.0.1"
 
 [tool.poetry.dev-dependencies]
 Pygments = ">=2.10.0"
@@ -47,6 +49,9 @@ myst-parser = {version = ">=0.16.1"}
 
 [tool.poetry.scripts]
 py2of = "py2of.__main__:main"
+
+[tool.poetry.group.dev.dependencies]
+nox = "^2022.11.21"
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
