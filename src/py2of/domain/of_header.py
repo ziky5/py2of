@@ -1,12 +1,9 @@
 from dataclasses import dataclass
 from enum import Enum
 
-# @dataclass()
-# class OfHeader:
-#     placeholder: str
+from py2of.domain.of_dict import OfDict
 
-
-class FieldType(Enum):
+class FieldOrder(Enum):
     Dictionary = "dictionary"
     ScalarField = "volScalarField"
     VectorField = "volVectorField"
@@ -18,19 +15,22 @@ class DataFormat(Enum):
 
 @dataclass()
 class OfHeader:
-    classname: FieldType
-    location: str
+    classname: FieldOrder
     name: str
     version: float = 2.0
     format: DataFormat = DataFormat.Ascii
 
+    def __str__(self) -> str:
+        header_dict = OfDict({
+            'version': self.version,
+            'format': self.format.value,
+            'class': self.classname.value,
+            'object': self.name,
+        })
+        return str(header_dict)
+
     def __post_init__(self):
-        assert isinstance(self.classname, FieldType)
+        assert isinstance(self.classname, FieldOrder)
         assert isinstance(self.format, DataFormat)
         assert isinstance(self.version, float)
         assert isinstance(self.name, str)
-        assert isinstance(self.location, str)
-        try:
-            float(self.location)
-        except:
-            raise AssertionError('"location" must be convertible to a number.')
