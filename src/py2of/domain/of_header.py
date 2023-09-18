@@ -7,11 +7,14 @@ from enum import Enum
 
 
 class FieldType(Enum):
-    dictionary = "dictionary"
-    volScalarField = "volScalarField"
-    volVectorField = "volVectorField"
-    volTensorField = "volTensorField"
+    Dictionary = "dictionary"
+    ScalarField = "volScalarField"
+    VectorField = "volVectorField"
+    TensorField = "volTensorField"
 
+class DataFormat(Enum):
+    Ascii = "ascii"
+    Binary = "binary"
 
 @dataclass()
 class OfHeader:
@@ -19,9 +22,15 @@ class OfHeader:
     location: str
     name: str
     version: float = 2.0
-    format: str = 'ascii'
+    format: DataFormat = DataFormat.Ascii
 
     def __post_init__(self):
         assert isinstance(self.classname, FieldType)
-
-#header = OfHeader(classname=FieldType.)
+        assert isinstance(self.format, DataFormat)
+        assert isinstance(self.version, float)
+        assert isinstance(self.name, str)
+        assert isinstance(self.location, str)
+        try:
+            float(self.location)
+        except:
+            raise AssertionError('"location" must be convertible to a number.')
