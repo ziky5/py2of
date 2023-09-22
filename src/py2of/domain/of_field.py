@@ -1,11 +1,14 @@
 from dataclasses import dataclass
 from typing import Union
+from pathlib import Path
 
 from py2of.domain.of_list import OfList
 from py2of.domain.of_dict import OfDict
 from py2of.domain.dimensions import Dimensions
 from py2of.domain.of_header import OfHeader
 from py2of.domain.of_header import FieldClass
+
+from py2of.service.dumper import Dumper
 
 @dataclass()
 class OfField(OfDict):
@@ -41,3 +44,8 @@ class OfField(OfDict):
             'internalField': self.internalData,
             'boundaryField': self.boundaryData,
         }
+    
+    def write(self,location):
+        dumper = Dumper(self.data)
+        path = Path(location) / self.fieldName
+        dumper.write(path, overwrite=True)

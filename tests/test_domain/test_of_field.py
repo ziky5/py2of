@@ -1,7 +1,6 @@
 import pytest
 
 from py2of.domain.of_field import OfField
-from py2of.domain.of_header import OfHeader
 from py2of.domain.dimensions import Dimensions
 from py2of.domain.of_list import OfList
 from py2of.domain.of_vector import OfVector
