@@ -6,6 +6,7 @@ from typing import Any
 from typing import Collection
 
 from py2of.domain.dimensions import Dimensions
+from py2of.domain.of_list import OfList
 
 
 @dataclass(init=False)
@@ -23,6 +24,8 @@ class OfDict(
                 string += "{\n"
                 string += indent(str(OfDict(value)), "    ")
                 string += "}\n"
+            elif isinstance(value, OfList):
+                string += f"{key} {value}\n"
             else:
                 string += f"{key} {value};\n"
 
