@@ -11,6 +11,7 @@ class Dumper:
     content: Mapping[str, Any]
 
     def write(self, path: Path, overwrite: bool = False) -> None:
+        path = Path(path)
         if path.exists() and not overwrite:
             raise FileExistsError(path)
 
