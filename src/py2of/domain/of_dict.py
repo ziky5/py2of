@@ -10,7 +10,7 @@ from py2of.domain.of_list import OfList
 
 
 @dataclass(init=False)
-class OfDict(
+class OfFile(
     UserDict[str, Mapping[str, Any] | str | float | int | Dimensions | Collection[str]]
 ):
     """OfDict."""
@@ -22,7 +22,7 @@ class OfDict(
             if isinstance(value, Mapping):
                 string += f"{key}\n"
                 string += "{\n"
-                string += indent(str(OfDict(value)), "    ")
+                string += indent(str(OfFile(value)), "    ")
                 string += "}\n"
             elif isinstance(value, OfList):
                 string += f"{key} {value}\n"

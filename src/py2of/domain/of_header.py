@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 
-from py2of.domain.of_dict import OfDict
+from py2of.domain.of_dict import OfFile
 
 
 class FieldClass(Enum):
@@ -17,7 +17,7 @@ class DataFormat(Enum):
 
 
 @dataclass()
-class OfHeader(OfDict):
+class OfHeader(OfFile):
     classname: FieldClass
     name: str
     version: float = 2.0

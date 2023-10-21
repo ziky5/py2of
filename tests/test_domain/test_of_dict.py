@@ -1,10 +1,10 @@
 from collections import UserDict
 
 from py2of.domain.dimensions import Dimensions
-from py2of.domain.of_dict import OfDict
+from py2of.domain.of_dict import OfFile
 
 
-dct = {"FoamFile": OfDict({"version": 2.0})}
+dct = {"FoamFile": OfFile({"version": 2.0})}
 
 string = """\
 FoamFile
@@ -15,25 +15,25 @@ FoamFile
 
 
 def test_can_be_created() -> None:
-    OfDict()
+    OfFile()
 
 
 def test_data_can_be_accessed() -> None:
-    a = OfDict(dct)
+    a = OfFile(dct)
     a.data
 
 
 def test_str_can_be_used() -> None:
-    str(OfDict(dct))
+    str(OfFile(dct))
 
 
 def test_str_nested_dict() -> None:
-    output = str(OfDict(dct))
+    output = str(OfFile(dct))
     assert output == string
 
 
 def test_str_nested_ofdict() -> None:
-    output = str(OfDict({"FoamFile": OfDict({"version": 2.0})}))
+    output = str(OfFile({"FoamFile": OfFile({"version": 2.0})}))
     assert output == string
 
 
@@ -50,7 +50,7 @@ def test_str_nested_ofdict() -> None:
 
 def test_triple_nested_ofdict() -> None:
     output = str(
-        OfDict({"solvers": OfDict({"p": OfDict({"solver": "PCG", "blah": 1000})})})
+        OfFile({"solvers": OfFile({"p": OfFile({"solver": "PCG", "blah": 1000})})})
     )
     string = """\
 solvers
@@ -66,7 +66,7 @@ solvers
 
 
 def test_dimensions_as_value() -> None:
-    output = str(OfDict({"dimensions": Dimensions()}))
+    output = str(OfFile({"dimensions": Dimensions()}))
     string = """\
 dimensions [0 0 0 0 0 0 0];
 """
@@ -74,7 +74,7 @@ dimensions [0 0 0 0 0 0 0];
 
 
 def test_user_dict() -> None:
-    output = str(OfDict({"FoamFile": UserDict({"class": "dictionary"})}))
+    output = str(OfFile({"FoamFile": UserDict({"class": "dictionary"})}))
     string = """\
 FoamFile
 {
@@ -95,7 +95,7 @@ def test_python_dict() -> None:
         "application": "scalarTransportFoam",
         "startFrom": "startTime",
     }
-    output = str(OfDict(python_dct))
+    output = str(OfFile(python_dct))
 
     string = """\
 FoamFile

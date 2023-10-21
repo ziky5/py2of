@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any
 from typing import Mapping
 
-from py2of.domain.of_dict import OfDict
+from py2of.domain.of_dict import OfFile
 
 
 @dataclass()
@@ -17,5 +17,5 @@ class Dumper:
         if not path.parent.exists():
             path.parent.mkdir(parents=True)
 
-        text = str(OfDict(self.content))
+        text = str(OfFile(self.content))
         path.write_text(text)
