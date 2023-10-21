@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from py2of.domain.of_dict import OfFile
+from py2of.domain.of_file import OfFile
 from py2of.service.dumper import Dumper
 
 

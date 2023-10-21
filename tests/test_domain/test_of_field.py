@@ -5,7 +5,7 @@ from py2of.domain.dimensions import Dimensions
 from py2of.domain.of_list import OfList
 from py2of.domain.of_vector import OfVector
 from py2of.domain.of_tensor import OfTensor
-from py2of.domain.of_dict import OfFile
+from py2of.domain.of_file import OfFile
 
 
 def test_create_field() -> None:

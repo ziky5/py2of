@@ -1,7 +1,7 @@
 from collections import UserDict
 
 from py2of.domain.dimensions import Dimensions
-from py2of.domain.of_dict import OfFile
+from py2of.domain.of_file import OfFile
 
 
 dct = {"FoamFile": OfFile({"version": 2.0})}

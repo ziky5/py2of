@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any
 from typing import Mapping
 
-from py2of.domain.of_dict import OfFile
+from py2of.domain.of_file import OfFile
 
 
 @dataclass()

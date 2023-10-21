@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 
-from py2of.domain.of_dict import OfFile
+from py2of.domain.of_file import OfFile
 
 
 class FieldClass(Enum):

@@ -3,7 +3,7 @@ from typing import Union
 from pathlib import Path
 
 from py2of.domain.of_list import OfList
-from py2of.domain.of_dict import OfFile
+from py2of.domain.of_file import OfFile
 from py2of.domain.dimensions import Dimensions
 from py2of.domain.of_header import OfHeader
 from py2of.domain.of_header import FieldClass
