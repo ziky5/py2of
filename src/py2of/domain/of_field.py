@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Union
 from pathlib import Path
 
@@ -10,12 +10,14 @@ from py2of.domain.of_header import FieldClass
 
 from py2of.service.dumper import Dumper
 
+
 @dataclass()
 class OfField(OfDict):
     fieldName: str
     dimension: Dimensions
     internalData: Union[OfList, OfDict]
     boundaryData: Union[OfList, OfDict]
+    data: dict = field(init=False, repr=False)
 
     def __post_init__(self) -> None:
         assert isinstance(self.fieldName, str)
@@ -24,28 +26,28 @@ class OfField(OfDict):
         assert isinstance(self.boundaryData, (OfList, OfDict))
 
         if isinstance(self.internalData, OfList):
-            if self.internalData.element_type == 'scalar':
+            if self.internalData.element_type == "scalar":
                 self.fieldclass = FieldClass.ScalarField
-            elif self.internalData.element_type == 'vector':
+            elif self.internalData.element_type == "vector":
                 self.fieldclass = FieldClass.VectorField
-            elif self.internalData.element_type == 'tensor':
+            elif self.internalData.element_type == "tensor":
                 self.fieldclass = FieldClass.TensorField
         elif isinstance(self.internalData, OfDict):
             self.fieldclass = FieldClass.Dictionary
 
         header = OfHeader(
-            name = self.fieldName,
-            classname = self.fieldclass,
+            name=self.fieldName,
+            classname=self.fieldclass,
         )
 
         self.data = {
-            'FoamFile': header,
-            'dimensions': self.dimension,
-            'internalField': self.internalData,
-            'boundaryField': self.boundaryData,
+            "FoamFile": header,
+            "dimensions": self.dimension,
+            "internalField": self.internalData,
+            "boundaryField": self.boundaryData,
         }
-    
-    def write(self,location):
+
+    def write(self, location):
         dumper = Dumper(self.data)
         path = Path(location) / self.fieldName
         dumper.write(path, overwrite=True)

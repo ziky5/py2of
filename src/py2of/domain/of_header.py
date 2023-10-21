@@ -3,15 +3,18 @@ from enum import Enum
 
 from py2of.domain.of_dict import OfDict
 
+
 class FieldClass(Enum):
     Dictionary = "dictionary"
     ScalarField = "volScalarField"
     VectorField = "volVectorField"
     TensorField = "volTensorField"
 
+
 class DataFormat(Enum):
     Ascii = "ascii"
     Binary = "binary"
+
 
 @dataclass()
 class OfHeader(OfDict):
@@ -27,8 +30,8 @@ class OfHeader(OfDict):
         assert isinstance(self.name, str)
 
         self.data = {
-            'version': self.version,
-            'format': self.format.value,
-            'class': self.classname.value,
-            'object': self.name,
+            "version": self.version,
+            "format": self.format.value,
+            "class": self.classname.value,
+            "object": self.name,
         }
