@@ -14,14 +14,14 @@ from py2of.service.dumper import Dumper
 class OfField(OfDict):
     fieldName: str
     dimension: Dimensions
-    internalData: Union[OfList, OfDict]
-    boundaryData: Union[OfList, OfDict]
+    internalData: OfList
+    boundaryData: OfDict
 
     def __post_init__(self) -> None:
         assert isinstance(self.fieldName, str)
         assert isinstance(self.dimension, Dimensions)
-        assert isinstance(self.internalData, (OfList, OfDict))
-        assert isinstance(self.boundaryData, (OfList, OfDict))
+        assert isinstance(self.internalData, OfList)
+        assert isinstance(self.boundaryData, OfDict)
 
         if isinstance(self.internalData, OfList):
             if self.internalData.element_type == 'scalar':

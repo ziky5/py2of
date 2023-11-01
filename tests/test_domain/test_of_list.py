@@ -1,7 +1,6 @@
 import pytest
 
 from py2of.domain.of_list import OfList
-from py2of.domain.of_list import create_oflist_from_list
 from py2of.domain.of_tensor import OfTensor
 from py2of.domain.of_vector import OfVector
 
@@ -75,7 +74,7 @@ def test_print_str() -> None:
 
 
 def test_nonuniform_scalar_oflist_from_list() -> None:
-    oflist = create_oflist_from_list([[1, 2.3, 8]])
+    oflist = OfList.from_components_lists([[1, 2.3, 8]])
     expected_output = '''\
 nonuniform\tList<scalar>
 3
@@ -87,7 +86,7 @@ nonuniform\tList<scalar>
     assert str(oflist) == expected_output
 
 def test_nonuniform_vector_oflist_from_list() -> None:
-    oflist = create_oflist_from_list([[1, 2.3, 8, 3], [2, 3.8, 15, 9], [3, 5.2, 123, 27]])
+    oflist = OfList.from_components_lists([[1, 2.3, 8, 3], [2, 3.8, 15, 9], [3, 5.2, 123, 27]])
     expected_output = '''\
 nonuniform\tList<vector>
 4
@@ -100,7 +99,7 @@ nonuniform\tList<vector>
     assert str(oflist) == expected_output
 
 def test_nonuniform_tensor_oflist_from_list() -> None:
-    oflist = create_oflist_from_list([[1, 2.3], [2, 3.8], [3, 5.2], [4, 7.0], [5, 16.4], [6, 7.8], [7, 15.2], [8, 0.0], [9, 3.3]])
+    oflist = OfList.from_components_lists([[1, 2.3], [2, 3.8], [3, 5.2], [4, 7.0], [5, 16.4], [6, 7.8], [7, 15.2], [8, 0.0], [9, 3.3]])
     expected_output = '''\
 nonuniform\tList<tensor>
 2
@@ -119,7 +118,7 @@ nonuniform\tList<tensor>
     assert str(oflist) == expected_output
 
 def test_uniform_scalar_oflist_from_list() -> None:
-    oflist = create_oflist_from_list([[1]])
+    oflist = OfList.from_components_lists([[1]])
     expected_output = '''\
 uniform\tList<scalar>
 1
@@ -129,7 +128,7 @@ uniform\tList<scalar>
     assert str(oflist) == expected_output
 
 def test_named_scalar_oflist_from_list() -> None:
-    oflist = create_oflist_from_list([[1, 2.3, 8]], name='genericOfList')
+    oflist = OfList.from_components_lists([[1, 2.3, 8]], name='genericOfList')
     expected_output = '''\
 genericOfList\tList<scalar>
 3
@@ -142,20 +141,20 @@ genericOfList\tList<scalar>
 
 def test_type_of_name_named_oflist_from_list() -> None:
     with pytest.raises(AssertionError):
-        oflist = create_oflist_from_list([[1, 2.3, 8]], name=2)
+        oflist = OfList.from_components_lists([[1, 2.3, 8]], name=2)
 
 def test_type_in_list_oflist_from_list() -> None:
     with pytest.raises(AssertionError):
-        oflist = create_oflist_from_list([['1', '2.3', '8']])
+        oflist = OfList.from_components_lists([['1', '2.3', '8']])
 
 def test_sublists_present_oflist_from_list() -> None:
     with pytest.raises(AssertionError):
-        oflist = create_oflist_from_list([1, 2.3, 8])
+        oflist = OfList.from_components_lists([1, 2.3, 8])
 
 def test_sublists_length_oflist_from_list() -> None:
     with pytest.raises(AssertionError):
-        oflist = create_oflist_from_list([[1, 2.3, 8],[1, 2.3, 8],[1, 8]])
+        oflist = OfList.from_components_lists([[1, 2.3, 8],[1, 2.3, 8],[1, 8]])
 
 def test_numer_of_sublists_length_oflist_from_list() -> None:
     with pytest.raises(AssertionError):
-        oflist = create_oflist_from_list([[1, 2.3, 8],[1, 2.3, 8],[1, 8, 4],[1, 8, 4]])
+        oflist = OfList.from_components_lists([[1, 2.3, 8],[1, 2.3, 8],[1, 8, 4],[1, 8, 4]])
