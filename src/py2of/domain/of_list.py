@@ -13,21 +13,21 @@ class ElementType(Enum):
 
 @dataclass()
 class OfList:
-    name: str | None
-    elements: Sequence[int | float | OfVector | OfTensor]
+    name: str | None                                                # TODO - name not mandatory
+    elements: Sequence[int | float | OfVector | OfTensor]           # TODO - OfList can be sequence of anything
     element_type: ElementType | None = None
     write_header: bool = True
 
     def __post_init__(self):
-        assert isinstance(self.elements, Sequence)
-        assert isinstance(self.name, str | None) # TODO test types and stuff
-        for iter_element in self.elements:
-            assert isinstance(iter_element, int | float | OfVector | OfTensor)
-        assert isinstance(self.element_type, ElementType | None)
-        assert isinstance(self.write_header, bool)
+        assert isinstance(self.name, str | None),  "'name' has to be of type 'str' or 'None'"
+        assert isinstance(self.elements, Sequence), "'elements' has to be a Sequence"
+        assert all(isinstance(x, int | float | OfVector | OfTensor) for x in self.elements), "'elements' has to be Sequence of 'int', 'float', 'OfVector' or 'OfTensor'"
+        assert all(isinstance(x, type(self.elements[0])) for x in self.elements), "All elements of parameter 'elements' has to be of the same type"
+        assert isinstance(self.element_type, ElementType | None), "'element_type' has to of type 'ElementType'"
+        assert isinstance(self.write_header, bool), "'write_header' has to be of type 'bool'"
 
         if not self.element_type:
-            if isinstance(self.elements[0], int | float):  #TODO check if all elements are of the same type
+            if isinstance(self.elements[0], int | float):
                 self.element_type = ElementType.Scalar
             elif isinstance(self.elements[0], OfVector):
                 self.element_type = ElementType.Vector
@@ -39,7 +39,9 @@ class OfList:
         if self.write_header:
             if self.name:
                 string += f"{self.name}\t"
-            string += f"List<{self.element_type.value}>\n"
+            string += "List"
+            if self.element_type:
+                string += f"<{self.element_type.value}>\n"
         string += f"{len(self)}\n(\n"
         for i in self.elements:
             string += f"{i}\n"
