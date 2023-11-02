@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 from py2of.domain.of_list import OfList, ElementType
@@ -15,6 +15,8 @@ class OfField(OfDict):
     dimension: Dimensions
     internalData: OfList
     boundaryData: OfDict
+    fieldClass: FieldClass = field(init=False, repr=False)
+    data: dict = field(init=False, repr=False)
 
     def __post_init__(self) -> None:
         assert isinstance(self.fieldName, str)
@@ -24,17 +26,17 @@ class OfField(OfDict):
 
         if isinstance(self.internalData, OfList):
             if self.internalData.element_type == ElementType.Scalar:
-                self.fieldclass = FieldClass.ScalarField
+                self.fieldClass = FieldClass.ScalarField
             elif self.internalData.element_type == ElementType.Vector:
-                self.fieldclass = FieldClass.VectorField
+                self.fieldClass = FieldClass.VectorField
             elif self.internalData.element_type == ElementType.Tensor:
-                self.fieldclass = FieldClass.TensorField
+                self.fieldClass = FieldClass.TensorField
         elif isinstance(self.internalData, OfDict):
-            self.fieldclass = FieldClass.Dictionary
+            self.fieldClass = FieldClass.Dictionary
 
         header = OfHeader(
             name = self.fieldName,
-            classname = self.fieldclass,
+            classname = self.fieldClass,
         )
 
         self.data = {
