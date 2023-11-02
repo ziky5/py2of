@@ -1,18 +1,46 @@
 from dataclasses import dataclass
 from typing import Sequence
+from enum import Enum
 
 from py2of.domain.of_tensor import OfTensor
 from py2of.domain.of_vector import OfVector
 
+class ElementType(Enum):
+    Scalar = "scalar"
+    Vector = "vector"
+    Tensor = "tensor"
+    Label = "label"
 
 @dataclass()
 class OfList:
-    name: str
+    name: str | None
     elements: Sequence[int | float | OfVector | OfTensor]
+    element_type: ElementType | None = None
+    write_header: bool = True
+
+    def __post_init__(self):
+        assert isinstance(self.elements, Sequence)
+        assert isinstance(self.name, str | None) # TODO test types and stuff
+        for iter_element in self.elements:
+            assert isinstance(iter_element, int | float | OfVector | OfTensor)
+        assert isinstance(self.element_type, ElementType | None)
+        assert isinstance(self.write_header, bool)
+
+        if not self.element_type:
+            if isinstance(self.elements[0], int | float):  #TODO check if all elements are of the same type
+                self.element_type = ElementType.Scalar
+            elif isinstance(self.elements[0], OfVector):
+                self.element_type = ElementType.Vector
+            elif isinstance(self.elements[0], OfTensor):
+                self.element_type = ElementType.Tensor
 
     def __str__(self) -> str:
-        string = f"{self.name}"
-        string += f"\tList<{self.element_type}>\n{len(self)}\n(\n"
+        string = ""
+        if self.write_header:
+            if self.name:
+                string += f"{self.name}\t"
+            string += f"List<{self.element_type.value}>\n"
+        string += f"{len(self)}\n(\n"
         for i in self.elements:
             string += f"{i}\n"
         string += ");"
@@ -20,20 +48,6 @@ class OfList:
 
     def __len__(self) -> int:
         return len(self.elements)
-
-    @property
-    def element_type(self) -> str:
-        python_element_type = type(
-            self.elements[0]
-        )  # TODO: make sure all the elements are the same type (__post_init___?)
-        if python_element_type == int or python_element_type == float:
-            return "scalar"
-        elif python_element_type == OfVector:
-            return "vector"
-        elif python_element_type == OfTensor:
-            return "tensor"
-        else:
-            raise TypeError()
 
     @classmethod
     def from_components_lists(

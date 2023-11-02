@@ -1,8 +1,7 @@
 from dataclasses import dataclass
-from typing import Union
 from pathlib import Path
 
-from py2of.domain.of_list import OfList
+from py2of.domain.of_list import OfList, ElementType
 from py2of.domain.of_dict import OfDict
 from py2of.domain.dimensions import Dimensions
 from py2of.domain.of_header import OfHeader
@@ -24,11 +23,11 @@ class OfField(OfDict):
         assert isinstance(self.boundaryData, OfDict)
 
         if isinstance(self.internalData, OfList):
-            if self.internalData.element_type == 'scalar':
+            if self.internalData.element_type == ElementType.Scalar:
                 self.fieldclass = FieldClass.ScalarField
-            elif self.internalData.element_type == 'vector':
+            elif self.internalData.element_type == ElementType.Vector:
                 self.fieldclass = FieldClass.VectorField
-            elif self.internalData.element_type == 'tensor':
+            elif self.internalData.element_type == ElementType.Tensor:
                 self.fieldclass = FieldClass.TensorField
         elif isinstance(self.internalData, OfDict):
             self.fieldclass = FieldClass.Dictionary

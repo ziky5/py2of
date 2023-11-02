@@ -66,7 +66,7 @@ listName\tList<tensor>
 
 
 def test_print_str() -> None:
-    with pytest.raises(TypeError):
+    with pytest.raises(AssertionError):
         array = OfList("listName", ["aaa"])  # type: ignore
         str(array)
 

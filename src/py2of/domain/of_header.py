@@ -8,6 +8,7 @@ class FieldClass(Enum):
     ScalarField = "volScalarField"
     VectorField = "volVectorField"
     TensorField = "volTensorField"
+    RegIOObject = "regIOobject" # TODO test this
 
 class DataFormat(Enum):
     Ascii = "ascii"
