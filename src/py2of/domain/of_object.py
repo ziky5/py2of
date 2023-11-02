@@ -31,20 +31,25 @@ class OfObject(): # TODO tests
         for key, item in self.internalData.items():
             amended_data_dct[key] = OfDict({
                 "type": 'cellZone',
-                "": OfList(
-                    name='cellLabels',
+                "cellLabels": OfList(
+                    name=None,
                     elements=item,
                     element_type=ElementType.Label
                 )
             })
         self.amended_data = OfDict(amended_data_dct)
 
+    def __str__(self) -> str:
+        string = ''
+        string += f'{self.header}\n'
+        string += f'{len(self.amended_data)}\n'
+        string += '(\n'
+        string += f'{self.amended_data}'
+        string += ')'
+
+        return string
     
     def write(self,location,mode='x'):
         path = Path(location) / self.objectName
         with open(path, mode) as f:
-            f.write(f'{self.header}\n')
-            f.write(f'{str(len(self.amended_data))}\n')
-            f.write('(\n')
-            f.write(f'{self.amended_data}')
-            f.write(')')
+            f.write(str(self))
