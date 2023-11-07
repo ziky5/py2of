@@ -2,8 +2,10 @@ from dataclasses import dataclass
 from typing import List
 from enum import Enum
 from typing import Sequence
+from numpy import ndarray
 
 from attr import field
+import numpy
 
 from py2of.domain.of_tensor import OfTensor
 from py2of.domain.of_vector import OfVector
@@ -22,15 +24,20 @@ class OfList:
     element_type: ElementType = field(init=False)
 
     def __post_init__(self):
-        assert isinstance(self.elements, Sequence)
-        python_element_type = type(
-            self.elements[0]
-        )  # TODO: make sure all the elements are the same type (__post_init___?)
-        if python_element_type == int or python_element_type == float:
+        assert isinstance(self.elements, (Sequence, ndarray))
+
+        is_scalar = False
+        try:
+            float(self.elements[0])
+            is_scalar = True
+        except:
+            pass
+
+        if is_scalar:
             self.element_type = ElementType.SCALAR
-        elif python_element_type == OfVector:
+        elif isinstance(self.elements[0], OfVector):
             self.element_type = ElementType.VECTOR
-        elif python_element_type == OfTensor:
+        elif isinstance(self.elements[0], OfTensor):
             self.element_type = ElementType.TENSOR
         else:
             raise TypeError(f"Unknown type of list: {self.elements}")
@@ -46,62 +53,28 @@ class OfList:
     def __len__(self) -> int:
         return len(self.elements)
 
+    @classmethod
+    def from_components(
+        cls,
+        lst: Sequence,
+        name: str | None = None,
+    ) -> "OfList":
+        lst = numpy.array(lst).T
+        assert lst.ndim == 1 or lst.shape[1] in [
+            3,
+            9,
+        ], f"Input sequence must have 1 element (scalar list), 3 elements (vector list) or 9 elements (tensor list). The input list has {lst.shape[1]} elements."
 
-def create_oflist_from_list(
-    lst: List,
-    name: str | None = None,
-) -> OfList:
-    assert isinstance(lst, List), "Input object must of type List."
-    assert len(lst) in [
-        1,
-        3,
-        9,
-    ], f"Input list must have 1 element (scalar list), 3 elements (vector list) or 9 elements (tensor list). The input list has {len(lst)} elements."
-
-    for i, sublst in enumerate(lst):
-        assert isinstance(sublst, List), "All sublists must of type List."
-        assert all(
-            isinstance(x, (int, float)) for x in sublst
-        ), 'All sublist must only contain "int" or "float".'
-        assert len(lst[0]) == len(
-            sublst
-        ), f"All sublists must have the same length ({len(lst[0])}). Sublist on position {i} has length {len(sublst)}."
-
-    assert (
-        isinstance(name, str) or name is None
-    ), 'argument "name" must be of type "str" or "None"'
-
-    if not name:
-        if len(lst[0]) == 1:
-            name = "uniform"
+        if lst.ndim == 1:
+            elements = lst.T
+        elif lst.shape[1] == 3:
+            elements = [OfVector.from_sequence(lst[i, :]) for i in range(lst.shape[0])]
         else:
+            elements = [OfTensor.from_sequence(lst[i, :]) for i in range(lst.shape[0])]
+
+        if name is None:
             name = "nonuniform"
+            if len(elements) == 1:
+                name = "uniform"
 
-    oflist_elements = []
-
-    if len(lst) == 1:
-        oflist_elements = lst[0]
-    elif len(lst) == 3:
-        for i in range(len(lst[0])):
-            vector = OfVector(
-                x=lst[0][i],
-                y=lst[1][i],
-                z=lst[2][i],
-            )
-            oflist_elements.append(vector)
-    elif len(lst) == 9:
-        for i in range(len(lst[0])):
-            tensor = OfTensor(
-                xx=lst[0][i],
-                xy=lst[1][i],
-                xz=lst[2][i],
-                yx=lst[3][i],
-                yy=lst[4][i],
-                yz=lst[5][i],
-                zx=lst[6][i],
-                zy=lst[7][i],
-                zz=lst[8][i],
-            )
-            oflist_elements.append(tensor)
-
-    return OfList(name=name, elements=oflist_elements)
+        return OfList(name=name, elements=elements)
