@@ -1,18 +1,43 @@
 from dataclasses import dataclass
 from typing import List
+from enum import Enum
+from typing import Sequence
+
+from attr import field
 
 from py2of.domain.of_tensor import OfTensor
 from py2of.domain.of_vector import OfVector
+
+
+class ElementType(Enum):
+    SCALAR = "scalar"
+    VECTOR = "vector"
+    TENSOR = "tensor"
 
 
 @dataclass()
 class OfList:
     name: str
     elements: List[int | float | OfVector | OfTensor]
+    element_type: ElementType = field(init=False)
+
+    def __post_init__(self):
+        assert isinstance(self.elements, Sequence)
+        python_element_type = type(
+            self.elements[0]
+        )  # TODO: make sure all the elements are the same type (__post_init___?)
+        if python_element_type == int or python_element_type == float:
+            self.element_type = ElementType.SCALAR
+        elif python_element_type == OfVector:
+            self.element_type = ElementType.VECTOR
+        elif python_element_type == OfTensor:
+            self.element_type = ElementType.TENSOR
+        else:
+            raise TypeError(f"Unknown type of list: {self.elements}")
 
     def __str__(self) -> str:
         string = f"{self.name}"
-        string += f"\tList<{self.element_type}>\n{len(self)}\n(\n"
+        string += f"\tList<{self.element_type.value}>\n{len(self)}\n(\n"
         for i in self.elements:
             string += f"{i}\n"
         string += ");"
@@ -20,20 +45,6 @@ class OfList:
 
     def __len__(self) -> int:
         return len(self.elements)
-
-    @property
-    def element_type(self) -> str:
-        python_element_type = type(
-            self.elements[0]
-        )  # TODO: make sure all the elements are the same type (__post_init___?)
-        if python_element_type == int or python_element_type == float:
-            return "scalar"
-        elif python_element_type == OfVector:
-            return "vector"
-        elif python_element_type == OfTensor:
-            return "tensor"
-        else:
-            raise TypeError()
 
 
 def create_oflist_from_list(

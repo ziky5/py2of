@@ -6,6 +6,13 @@ from py2of.domain.of_file import OfFile
 from py2of.domain.dimensions import Dimensions
 from py2of.domain.of_header import OfHeader
 from py2of.domain.of_header import FieldClass
+from py2of.domain.of_list import ElementType
+
+ELEMENT_TO_FIELD_TYPE = {
+    ElementType.SCALAR: FieldClass.ScalarField,
+    ElementType.VECTOR: FieldClass.VectorField,
+    ElementType.TENSOR: FieldClass.TensorField,
+}
 
 
 @dataclass()
@@ -23,12 +30,7 @@ class OfField(OfFile):
         assert isinstance(self.boundaryData, (OfList, OfFile))
 
         if isinstance(self.internalData, OfList):
-            if self.internalData.element_type == "scalar":
-                self.fieldclass = FieldClass.ScalarField
-            elif self.internalData.element_type == "vector":
-                self.fieldclass = FieldClass.VectorField
-            elif self.internalData.element_type == "tensor":
-                self.fieldclass = FieldClass.TensorField
+            self.fieldclass = ELEMENT_TO_FIELD_TYPE[self.internalData.element_type]
         elif isinstance(self.internalData, OfFile):
             self.fieldclass = FieldClass.Dictionary
 
