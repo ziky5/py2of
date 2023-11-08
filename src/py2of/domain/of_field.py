@@ -6,7 +6,6 @@ from py2of.domain.of_file import OfFile
 from py2of.domain.dimensions import Dimensions
 from py2of.domain.of_header import OfHeader
 from py2of.domain.of_header import FieldType
-from py2of.domain.of_list import ElementType
 from py2of.domain.of_tensor import OfTensor
 from py2of.domain.of_vector import OfVector
 
