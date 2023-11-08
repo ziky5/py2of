@@ -10,12 +10,6 @@ from py2of.domain.of_list import ElementType
 from py2of.domain.of_tensor import OfTensor
 from py2of.domain.of_vector import OfVector
 
-ELEMENT_TO_FIELD_TYPE = {
-    ElementType.SCALAR: FieldType.ScalarField,
-    ElementType.VECTOR: FieldType.VectorField,
-    ElementType.TENSOR: FieldType.TensorField,
-}
-
 
 @dataclass()
 class OfField(OfFile):
