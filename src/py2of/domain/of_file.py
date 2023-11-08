@@ -23,6 +23,8 @@ class OfFile(
         string = ""
 
         for key, value in self.data.items():
+            if callable(key):
+                key = key()
             if callable(value):
                 value = value()
             if isinstance(value, Mapping):

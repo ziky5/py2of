@@ -9,10 +9,8 @@ from py2of.domain.of_vector import OfVector
 
 @dataclass
 class OfBoundaryCondition(ABC):
-    pass
-
     @abstractmethod
-    def __call__(self) -> Any:
+    def __call__(self) -> dict:
         pass
 
 
@@ -22,3 +20,9 @@ class FixedValue(OfBoundaryCondition):
 
     def __call__(self) -> dict:
         return {"type": "fixedValue", "value": str(self.value)}
+
+
+@dataclass
+class ZeroGradient(OfBoundaryCondition):
+    def __call__(self) -> dict:
+        return {"type": "zeroGradient"}

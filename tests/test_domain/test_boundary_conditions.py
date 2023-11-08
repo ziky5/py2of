@@ -1,4 +1,4 @@
-from py2of.domain.of_boundary_conditions import FixedValue
+from py2of.domain.of_boundary_conditions import FixedValue, ZeroGradient
 from py2of.domain.of_file import OfFile
 from py2of.domain.of_list import NonUniformList, UniformList
 from py2of.domain.of_vector import OfVector
@@ -16,6 +16,11 @@ def test_fixed_value_uniform_value_scalar():
 def test_fixed_value_uniform_value_vector():
     fv = FixedValue(UniformList(OfVector([0, 0, 0])))
     assert fv() == {"type": "fixedValue", "value": "uniform (0 0 0)"}
+
+
+def test_zero_gradient():
+    zg = ZeroGradient()
+    assert zg() == {"type": "zeroGradient"}
 
 
 def test_fixed_value_nonuniform_value_scalar():

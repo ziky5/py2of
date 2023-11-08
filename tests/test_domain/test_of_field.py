@@ -1,4 +1,6 @@
 import pytest
+from py2of.domain.of_boundary import OfBoundary
+from py2of.domain.of_boundary_conditions import ZeroGradient
 
 from py2of.domain.of_field import OfField, UniformList, NonUniformList
 from py2of.domain.dimensions import Dimensions
@@ -261,3 +263,48 @@ def test_boundaryField_type() -> None:
                 "BC_inlet": {"type": "zeroGradient"},
             },
         )
+
+
+def test_proper_offield_usage():
+    bc_wall = OfBoundary("BC_wall")
+    bc_inlet = OfBoundary("BC_inlet")
+
+    field = OfField(
+        fieldName="genericObject",
+        dimensions=Dimensions(kg=1, m=2, s=-1, K=-2, mol=3, A=4, cd=9),
+        internalData=NonUniformList([0.5, 1.5, 2.5]),
+        boundaryData={
+            bc_wall: ZeroGradient(),
+            bc_inlet: ZeroGradient(),
+        },
+    )
+    
+    expected_output = """\
+FoamFile
+{
+    version 2.0;
+    format ascii;
+    class volScalarField;
+    object genericObject;
+}
+dimensions [1 2 -1 -2 3 4 9];
+internalField nonuniform\tList<scalar>
+3
+(
+0.5
+1.5
+2.5
+);
+boundaryField
+{
+    BC_wall
+    {
+        type zeroGradient;
+    }
+    BC_inlet
+    {
+        type zeroGradient;
+    }
+}
+"""
+    assert str(field) == expected_output

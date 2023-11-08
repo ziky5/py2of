@@ -1,5 +1,7 @@
 from dataclasses import dataclass, field
-from typing import Union
+from typing import Mapping, Union
+from py2of.domain.of_boundary import OfBoundary
+from py2of.domain.of_boundary_conditions import OfBoundaryCondition
 
 from py2of.domain.of_list import NonUniformList, OfList, UniformList
 from py2of.domain.of_file import OfFile
@@ -15,7 +17,7 @@ class OfField(OfFile):
     fieldName: str
     dimensions: Dimensions
     internalData: UniformList | NonUniformList
-    boundaryData: Union[OfList, OfFile]
+    boundaryData: Mapping[OfBoundary, OfBoundaryCondition]
     data: dict = field(init=False, repr=False)
 
     def __post_init__(self) -> None:
