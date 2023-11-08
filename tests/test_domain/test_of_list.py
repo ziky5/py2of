@@ -24,9 +24,7 @@ listName\tList<scalar>
 
 
 def test_print_vector() -> None:
-    array = OfList(
-        "listName", [OfVector(x=1.1, y=5.0, z=0.0), OfVector(x=1.0, y=4.0, z=2.5)]
-    )
+    array = OfList("listName", [OfVector([1.1, 5.0, 0.0]), OfVector([1.0, 4.0, 2.5])])
     expected = """\
 listName\tList<vector>
 2

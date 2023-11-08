@@ -14,9 +14,9 @@ def test_create_field() -> None:
         dimensions=Dimensions(kg=1, m=2, s=-1, K=-2, mol=3, A=4, cd=9),
         internalData=NonUniformList(
             [
-                OfVector(x=1, y=2, z=3),
-                OfVector(x=0.5, y=1.5, z=2.5),
-                OfVector(x=3, y=6.2, z=0.5),
+                OfVector([1, 2, 3]),
+                OfVector([0.5, 1.5, 2.5]),
+                OfVector([3, 6.2, 0.5]),
             ],
         ),
         boundaryData=OfFile(
@@ -77,9 +77,9 @@ def test_print_vector_field() -> None:
         dimensions=Dimensions(kg=1, m=2, s=-1, K=-2, mol=3, A=4, cd=9),
         internalData=NonUniformList(
             [
-                OfVector(x=1, y=2, z=3),
-                OfVector(x=0.5, y=1.5, z=2.5),
-                OfVector(x=3, y=6.2, z=0.5),
+                OfVector([1, 2, 3]),
+                OfVector([0.5, 1.5, 2.5]),
+                OfVector([3, 6.2, 0.5]),
             ],
         ),
         boundaryData=OfFile(
@@ -192,9 +192,9 @@ def test_fieldname_type() -> None:
             dimensions=Dimensions(kg=1, m=2, s=-1, K=-2, mol=3, A=4, cd=9),
             internalData=NonUniformList(
                 [
-                    OfVector(x=1, y=2, z=3),
-                    OfVector(x=0.5, y=1.5, z=2.5),
-                    OfVector(x=3, y=6.2, z=0.5),
+                    OfVector([1, 2, 3]),
+                    OfVector([0.5, 1.5, 2.5]),
+                    OfVector([3, 6.2, 0.5]),
                 ],
             ),
             boundaryData=OfFile(
@@ -214,9 +214,9 @@ def test_dimensions_type() -> None:
             internalData=OfList(
                 "nonuniform",
                 [
-                    OfVector(x=1, y=2, z=3),
-                    OfVector(x=0.5, y=1.5, z=2.5),
-                    OfVector(x=3, y=6.2, z=0.5),
+                    OfVector([1, 2, 3]),
+                    OfVector([0.5, 1.5, 2.5]),
+                    OfVector([3, 6.2, 0.5]),
                 ],
             ),
             boundaryData=OfFile(
@@ -251,9 +251,9 @@ def test_boundaryField_type() -> None:
             internalData=OfList(
                 "nonuniform",
                 [
-                    OfVector(x=1, y=2, z=3),
-                    OfVector(x=0.5, y=1.5, z=2.5),
-                    OfVector(x=3, y=6.2, z=0.5),
+                    OfVector([1, 2, 3]),
+                    OfVector([0.5, 1.5, 2.5]),
+                    OfVector([3, 6.2, 0.5]),
                 ],
             ),
             boundaryData={

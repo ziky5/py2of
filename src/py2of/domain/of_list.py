@@ -68,7 +68,7 @@ class OfList:
         if lst.ndim == 1:
             elements = lst.T
         elif lst.shape[1] == 3:
-            elements = [OfVector.from_sequence(lst[i, :]) for i in range(lst.shape[0])]
+            elements = [OfVector(lst[i, :]) for i in range(lst.shape[0])]
         else:
             elements = [OfTensor.from_sequence(lst[i, :]) for i in range(lst.shape[0])]
 

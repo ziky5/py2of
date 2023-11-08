@@ -1,16 +1,13 @@
 from dataclasses import dataclass
+from typing import Iterable, Sequence
 
 
-@dataclass()
+@dataclass
 class OfVector:
-    x: float
-    y: float
-    z: float
+    values: Sequence[int | float]
+
+    def __post_init__(self):
+        assert len(self.values) == 3
 
     def __str__(self) -> str:
-        return f"({self.x} {self.y} {self.z})"
-
-    @classmethod
-    def from_sequence(cls, seq):
-        assert len(seq) == 3
-        return cls(x=seq[0], y=seq[1], z=seq[2])
+        return f"({self.values[0]} {self.values[1]} {self.values[2]})"
