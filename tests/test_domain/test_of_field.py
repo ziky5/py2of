@@ -1,6 +1,6 @@
 import pytest
 
-from py2of.domain.of_field import OfField
+from py2of.domain.of_field import OfField, UniformList, NonUniformList
 from py2of.domain.dimensions import Dimensions
 from py2of.domain.of_list import OfList
 from py2of.domain.of_vector import OfVector
@@ -9,11 +9,10 @@ from py2of.domain.of_file import OfFile
 
 
 def test_create_field() -> None:
-    field = OfField(
+    OfField(
         fieldName="genericObject",
-        dimension=Dimensions(kg=1, m=2, s=-1, K=-2, mol=3, A=4, cd=9),
-        internalData=OfList(
-            "nonuniform",
+        dimensions=Dimensions(kg=1, m=2, s=-1, K=-2, mol=3, A=4, cd=9),
+        internalData=NonUniformList(
             [
                 OfVector(x=1, y=2, z=3),
                 OfVector(x=0.5, y=1.5, z=2.5),
@@ -32,8 +31,8 @@ def test_create_field() -> None:
 def test_print_scalar_field() -> None:
     field = OfField(
         fieldName="genericObject",
-        dimension=Dimensions(kg=1, m=2, s=-1, K=-2, mol=3, A=4, cd=9),
-        internalData=OfList("nonuniform", [0.5, 1.5, 2.5]),
+        dimensions=Dimensions(kg=1, m=2, s=-1, K=-2, mol=3, A=4, cd=9),
+        internalData=NonUniformList([0.5, 1.5, 2.5]),
         boundaryData=OfFile(
             {
                 "BC_wall": {"type": "zeroGradient"},
@@ -75,9 +74,8 @@ boundaryField
 def test_print_vector_field() -> None:
     field = OfField(
         fieldName="genericObject",
-        dimension=Dimensions(kg=1, m=2, s=-1, K=-2, mol=3, A=4, cd=9),
-        internalData=OfList(
-            "nonuniform",
+        dimensions=Dimensions(kg=1, m=2, s=-1, K=-2, mol=3, A=4, cd=9),
+        internalData=NonUniformList(
             [
                 OfVector(x=1, y=2, z=3),
                 OfVector(x=0.5, y=1.5, z=2.5),
@@ -125,9 +123,8 @@ boundaryField
 def test_print_tensor_field() -> None:
     field = OfField(
         fieldName="genericObject",
-        dimension=Dimensions(kg=1, m=2, s=-1, K=-2, mol=3, A=4, cd=9),
-        internalData=OfList(
-            "nonuniform",
+        dimensions=Dimensions(kg=1, m=2, s=-1, K=-2, mol=3, A=4, cd=9),
+        internalData=NonUniformList(
             [
                 OfTensor(xx=1, xy=2, xz=3, yx=4, yy=5, yz=6, zx=7, zy=8, zz=9),
                 OfTensor(
@@ -192,9 +189,8 @@ def test_fieldname_type() -> None:
     with pytest.raises(AssertionError):
         field = OfField(
             fieldName=1,
-            dimension=Dimensions(kg=1, m=2, s=-1, K=-2, mol=3, A=4, cd=9),
-            internalData=OfList(
-                "nonuniform",
+            dimensions=Dimensions(kg=1, m=2, s=-1, K=-2, mol=3, A=4, cd=9),
+            internalData=NonUniformList(
                 [
                     OfVector(x=1, y=2, z=3),
                     OfVector(x=0.5, y=1.5, z=2.5),
@@ -214,7 +210,7 @@ def test_dimensions_type() -> None:
     with pytest.raises(AssertionError):
         field = OfField(
             fieldName="genericObject",
-            dimension=[1, 2, -1, -2, 3, 4, 9],
+            dimensions=[1, 2, -1, -2, 3, 4, 9],
             internalData=OfList(
                 "nonuniform",
                 [
@@ -236,7 +232,7 @@ def test_internalField_type() -> None:
     with pytest.raises(AssertionError):
         field = OfField(
             fieldName="genericObject",
-            dimension=Dimensions(kg=1, m=2, s=-1, K=-2, mol=3, A=4, cd=9),
+            dimensions=Dimensions(kg=1, m=2, s=-1, K=-2, mol=3, A=4, cd=9),
             internalData=[[1, 2, 3], [0.5, 1.5, 2.5], [3, 6.2, 0.5]],
             boundaryData=OfFile(
                 {
@@ -251,7 +247,7 @@ def test_boundaryField_type() -> None:
     with pytest.raises(AssertionError):
         field = OfField(
             fieldName="genericObject",
-            dimension=Dimensions(kg=1, m=2, s=-1, K=-2, mol=3, A=4, cd=9),
+            dimensions=Dimensions(kg=1, m=2, s=-1, K=-2, mol=3, A=4, cd=9),
             internalData=OfList(
                 "nonuniform",
                 [

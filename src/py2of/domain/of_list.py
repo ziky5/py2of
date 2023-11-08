@@ -1,5 +1,5 @@
+from collections.abc import Iterable
 from dataclasses import dataclass
-from typing import List
 from enum import Enum
 from typing import Sequence
 from numpy import ndarray
@@ -20,38 +20,38 @@ class ElementType(Enum):
 @dataclass()
 class OfList:
     name: str
-    elements: List[int | float | OfVector | OfTensor]
-    element_type: ElementType = field(init=False)
+    values: list[int | float | OfVector | OfTensor]
+    values_type: ElementType = field(init=False)
 
     def __post_init__(self):
-        assert isinstance(self.elements, (Sequence, ndarray))
+        assert isinstance(self.values, (Sequence, ndarray))
 
         is_scalar = False
         try:
-            float(self.elements[0])
+            float(self.values[0])
             is_scalar = True
         except:
             pass
 
         if is_scalar:
-            self.element_type = ElementType.SCALAR
-        elif isinstance(self.elements[0], OfVector):
-            self.element_type = ElementType.VECTOR
-        elif isinstance(self.elements[0], OfTensor):
-            self.element_type = ElementType.TENSOR
+            self.values_type = ElementType.SCALAR
+        elif isinstance(self.values[0], OfVector):
+            self.values_type = ElementType.VECTOR
+        elif isinstance(self.values[0], OfTensor):
+            self.values_type = ElementType.TENSOR
         else:
-            raise TypeError(f"Unknown type of list: {self.elements}")
+            raise TypeError(f"Unknown type of list: {self.values}")
 
     def __str__(self) -> str:
         string = f"{self.name}"
-        string += f"\tList<{self.element_type.value}>\n{len(self)}\n(\n"
-        for i in self.elements:
+        string += f"\tList<{self.values_type.value}>\n{len(self)}\n(\n"
+        for i in self.values:
             string += f"{i}\n"
         string += ");"
         return string
 
     def __len__(self) -> int:
-        return len(self.elements)
+        return len(self.values)
 
     @classmethod
     def from_components(
@@ -77,4 +77,20 @@ class OfList:
             if len(elements) == 1:
                 name = "uniform"
 
-        return OfList(name=name, elements=elements)
+        return OfList(name=name, values=elements)
+
+
+@dataclass
+class UniformList:
+    value: int | float | OfVector | OfTensor
+
+    def __str__(self) -> str:
+        return f"uniform {self.value}"
+
+
+@dataclass
+class NonUniformList:
+    values: Iterable[int | float | OfVector | OfTensor]
+
+    def __str__(self) -> str:
+        return str(OfList("nonuniform", self.values))

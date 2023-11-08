@@ -4,7 +4,7 @@ from enum import Enum
 from py2of.domain.of_file import OfFile
 
 
-class FieldClass(Enum):
+class FieldType(Enum):
     Dictionary = "dictionary"
     ScalarField = "volScalarField"
     VectorField = "volVectorField"
@@ -18,13 +18,13 @@ class DataFormat(Enum):
 
 @dataclass()
 class OfHeader(OfFile):
-    classname: FieldClass
+    classname: FieldType
     name: str
     version: float = 2.0
     format: DataFormat = DataFormat.Ascii
 
     def __post_init__(self) -> None:
-        assert isinstance(self.classname, FieldClass)
+        assert isinstance(self.classname, FieldType)
         assert isinstance(self.format, DataFormat)
         assert isinstance(self.version, float)
         assert isinstance(self.name, str)

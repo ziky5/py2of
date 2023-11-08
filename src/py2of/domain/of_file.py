@@ -8,7 +8,7 @@ from typing import Collection
 import logging
 
 from py2of.domain.dimensions import Dimensions
-from py2of.domain.of_list import OfList
+from py2of.domain.of_list import OfList, NonUniformList, UniformList
 
 logger = logging.getLogger(__name__)
 
@@ -28,7 +28,7 @@ class OfFile(
                 string += "{\n"
                 string += indent(str(OfFile(value)), "    ")
                 string += "}\n"
-            elif isinstance(value, OfList):
+            elif isinstance(value, (OfList, UniformList, NonUniformList)):
                 string += f"{key} {value}\n"
             else:
                 string += f"{key} {value};\n"
