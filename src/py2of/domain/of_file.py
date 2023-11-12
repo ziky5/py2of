@@ -40,6 +40,7 @@ class OfFile(
         return string
 
     def write(self, path: Path, overwrite: bool = False) -> None:
+        path = Path(path)
         logger.info("Going to write OF file %s", path)
         if path.exists() and not overwrite:
             raise FileExistsError(path)
