@@ -1,16 +1,31 @@
 from dataclasses import dataclass
 from typing import Any
-from enum import StrEnum, auto
+from enum import Enum
+
+from matsight_sdk_core.utils.yaml import yaml
+from matsight_sdk_core.utils.yaml import YamlSerializable
 
 
-class OfBoundaryType(StrEnum):
+# Enums can't inherit from YamlSerializable and can't have yaml_tag attribute
+class OfBoundaryType(Enum):
     PATCH = "patch"
     WALL = "wall"
     EMPTY = "empty"
 
+    @classmethod
+    def to_yaml(cls, representer, node):
+        return representer.represent_scalar("!OfBoundaryType", node.value)
 
-@dataclass
-class OfBoundary:
+    @classmethod
+    def from_yaml(cls, constructor, node):
+        return cls(node.value)
+
+
+yaml.register_class(OfBoundaryType)
+
+
+@dataclass(kw_only=True)
+class OfBoundary(YamlSerializable):
     label: str
     type: OfBoundaryType = OfBoundaryType.PATCH
 
