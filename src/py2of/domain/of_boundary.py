@@ -2,9 +2,6 @@ from dataclasses import dataclass
 from typing import Any
 from enum import Enum
 
-from matsight_sdk_core.utils.yaml import yaml
-from matsight_sdk_core.utils.yaml import YamlSerializable
-
 
 # Enums can't inherit from YamlSerializable and can't have yaml_tag attribute
 class OfBoundaryType(Enum):
@@ -21,11 +18,8 @@ class OfBoundaryType(Enum):
         return cls(node.value)
 
 
-yaml.register_class(OfBoundaryType)
-
-
 @dataclass(kw_only=True)
-class OfBoundary(YamlSerializable):
+class OfBoundary:
     label: str
     type: OfBoundaryType = OfBoundaryType.PATCH
 
