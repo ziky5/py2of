@@ -1,13 +1,8 @@
-from collections import UserDict
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from textwrap import indent
-from typing import Any
-from typing import Collection
 import logging
 
-from py2of.domain.dimensions import Dimensions
 from py2of.domain.of_list import OfList, NonUniformList, UniformList
 
 logger = logging.getLogger(__name__)
@@ -15,27 +10,22 @@ logger = logging.getLogger(__name__)
 
 @dataclass(init=False)
 class OfFile(
-    UserDict[str, Mapping[str, Any] | str | float | int | Dimensions | Collection[str]]
+    list
+    # UserDict[str, Mapping[str, Any] | str | float | int | Dimensions | Collection[str]]
 ):
     """OfDict."""
 
     def __str__(self) -> str:
         string = ""
 
-        for key, value in self.data.items():
-            if callable(key):
-                key = key()
-            if callable(value):
-                value = value()
-            if isinstance(value, Mapping):
-                string += f"{key}\n"
-                string += "{\n"
-                string += indent(str(OfFile(value)), "    ")
-                string += "}\n"
-            elif isinstance(value, (OfList, UniformList, NonUniformList)):
-                string += f"{key} {value}\n"
+        for item in iter(self):
+            if callable(item):
+                item = item()
+
+            if isinstance(item, Mapping):
+                string += OfList.print_mapping(item)
             else:
-                string += f"{key} {value};\n"
+                string += str(item)
 
         return string
 
@@ -48,5 +38,5 @@ class OfFile(
         if not path.parent.exists():
             path.parent.mkdir(parents=True)
 
-        text = str(OfFile(self.data))
+        text = str(OfFile(self))
         path.write_text(text)

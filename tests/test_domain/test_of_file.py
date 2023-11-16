@@ -6,7 +6,7 @@ from py2of.domain.dimensions import Dimensions
 from py2of.domain.of_file import OfFile
 
 
-dct = {"FoamFile": OfFile({"version": 2.0})}
+dct = {"FoamFile": {"version": 2.0}}
 
 string = """\
 FoamFile
@@ -21,21 +21,15 @@ def test_can_be_created() -> None:
 
 
 def test_data_can_be_accessed() -> None:
-    a = OfFile(dct)
-    a.data
+    OfFile([dct])
 
 
 def test_str_can_be_used() -> None:
-    str(OfFile(dct))
+    str(OfFile([dct]))
 
 
 def test_str_nested_dict() -> None:
-    output = str(OfFile(dct))
-    assert output == string
-
-
-def test_str_nested_ofdict() -> None:
-    output = str(OfFile({"FoamFile": OfFile({"version": 2.0})}))
+    output = str(OfFile([dct]))
     assert output == string
 
 
@@ -51,9 +45,7 @@ def test_str_nested_ofdict() -> None:
 
 
 def test_triple_nested_ofdict() -> None:
-    output = str(
-        OfFile({"solvers": OfFile({"p": OfFile({"solver": "PCG", "blah": 1000})})})
-    )
+    output = str(OfFile([{"solvers": {"p": {"solver": "PCG", "blah": 1000}}}]))
     string = """\
 solvers
 {
@@ -68,20 +60,9 @@ solvers
 
 
 def test_dimensions_as_value() -> None:
-    output = str(OfFile({"dimensions": Dimensions()}))
+    output = str(OfFile([{"dimensions": Dimensions()}]))
     string = """\
 dimensions [0 0 0 0 0 0 0];
-"""
-    assert output == string
-
-
-def test_user_dict() -> None:
-    output = str(OfFile({"FoamFile": UserDict({"class": "dictionary"})}))
-    string = """\
-FoamFile
-{
-    class dictionary;
-}
 """
     assert output == string
 
@@ -97,7 +78,7 @@ def test_python_dict() -> None:
         "application": "scalarTransportFoam",
         "startFrom": "startTime",
     }
-    output = str(OfFile(python_dct))
+    output = str(OfFile([python_dct]))
 
     string = """\
 FoamFile
@@ -121,7 +102,7 @@ def test_can_write_file(tmp_path: Path) -> None:
 
 def test_writes_content_correctly(tmp_path: Path) -> None:
     string = "application scalarTransportFoam;"
-    dct = OfFile({"application": "scalarTransportFoam"})
+    dct = OfFile([{"application": "scalarTransportFoam"}])
 
     d = OfFile(dct)
     d.write(path=tmp_path / "controlDict")
@@ -169,7 +150,7 @@ def test_content_is_basic_python_dict(tmp_path: Path) -> None:
     string = "application scalarTransportFoam;"
     dct = {"application": "scalarTransportFoam"}
 
-    d = OfFile(dct)
+    d = OfFile([dct])
     d.write(path=tmp_path / "controlDict")
 
     written_string = Path(tmp_path / "controlDict").read_text().strip()

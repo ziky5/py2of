@@ -35,12 +35,10 @@ def test_print_scalar_field() -> None:
         fieldName="genericObject",
         dimensions=Dimensions(kg=1, m=2, s=-1, K=-2, mol=3, A=4, cd=9),
         internalData=NonUniformList([0.5, 1.5, 2.5]),
-        boundaryData=OfFile(
-            {
-                "BC_wall": {"type": "zeroGradient"},
-                "BC_inlet": {"type": "zeroGradient"},
-            }
-        ),
+        boundaryData={
+            "BC_wall": {"type": "zeroGradient"},
+            "BC_inlet": {"type": "zeroGradient"},
+        },
     )
     expected_output = """\
 FoamFile
@@ -84,12 +82,10 @@ def test_print_vector_field() -> None:
                 OfVector([3, 6.2, 0.5]),
             ],
         ),
-        boundaryData=OfFile(
-            {
-                "BC_wall": {"type": "zeroGradient"},
-                "BC_inlet": {"type": "zeroGradient"},
-            }
-        ),
+        boundaryData={
+            "BC_wall": {"type": "zeroGradient"},
+            "BC_inlet": {"type": "zeroGradient"},
+        },
     )
     expected_output = """\
 FoamFile
@@ -142,12 +138,10 @@ def test_print_tensor_field() -> None:
                 ),
             ],
         ),
-        boundaryData=OfFile(
-            {
-                "BC_wall": {"type": "zeroGradient"},
-                "BC_inlet": {"type": "zeroGradient"},
-            }
-        ),
+        boundaryData={
+            "BC_wall": {"type": "zeroGradient"},
+            "BC_inlet": {"type": "zeroGradient"},
+        },
     )
     expected_output = """\
 FoamFile

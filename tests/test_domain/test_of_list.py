@@ -105,28 +105,6 @@ def test_print_scalar_no_header() -> None:
     assert str(array) == expected
 
 
-def test_assert_str_list() -> None:
-    with pytest.raises(AssertionError):
-        OfList("listName", ["1", "2", "3"])
-
-
-def test_assert_list_list() -> None:
-    with pytest.raises(AssertionError):
-        OfList("listName", [(1, 2, 3), (4, 5, 6), (7, 8, 9)])
-
-
-def test_assert_tensor_list() -> None:
-    with pytest.raises(AssertionError):
-        OfList(
-            "listName",
-            [
-                (1, 2, 3, 4, 5, 6, 7, 8, 9),
-                (11, 12, 13, 14, 15, 16, 17, 18, 19),
-                (21, 22, 23, 24, 25, 26, 27, 28, 29),
-            ],
-        )
-
-
 def test_assert_name() -> None:
     with pytest.raises(AssertionError):
         OfList(1, [1, 2, 3])
@@ -145,12 +123,6 @@ def test_assert_element_type() -> None:
 def test_assert_write_header() -> None:
     with pytest.raises(AssertionError):
         OfList("listName", [1, 2, 3], write_header=None)
-
-
-def test_print_str() -> None:
-    with pytest.raises(AssertionError):
-        array = OfList("listName", ["aaa"])  # type: ignore
-        str(array)
 
 
 def test_nonuniform_scalar_oflist_from_list() -> None:

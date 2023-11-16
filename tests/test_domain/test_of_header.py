@@ -1,10 +1,11 @@
 import pytest
+from py2of.domain.of_file import OfFile
 
 from py2of.domain.of_header import OfHeader, FieldType, DataFormat
 
 
 def test_create_header() -> None:
-    header = OfHeader(classname=FieldType.VectorField, name="genericObject")
+    OfHeader(classname=FieldType.VectorField, name="genericObject")
 
 
 def test_print_header_dictionary() -> None:
@@ -15,7 +16,7 @@ format ascii;
 class dictionary;
 object genericObject;
 """
-    assert str(header) == expected_output
+    assert str(OfFile([header])) == expected_output
 
 
 def test_print_header_scalar_field() -> None:
@@ -26,7 +27,7 @@ format ascii;
 class volScalarField;
 object genericObject;
 """
-    assert str(header) == expected_output
+    assert str(OfFile([header])) == expected_output
 
 
 def test_print_header_vector_field() -> None:
@@ -37,7 +38,7 @@ format ascii;
 class volVectorField;
 object genericObject;
 """
-    assert str(header) == expected_output
+    assert str(OfFile([header])) == expected_output
 
 
 def test_print_header_tensor_field() -> None:
@@ -48,7 +49,7 @@ format ascii;
 class volTensorField;
 object genericObject;
 """
-    assert str(header) == expected_output
+    assert str(OfFile([header])) == expected_output
 
 
 def test_print_header_regioobject() -> None:
@@ -59,7 +60,7 @@ format ascii;
 class regIOobject;
 object genericObject;
 """
-    assert str(header) == expected_output
+    assert str(OfFile([header])) == expected_output
 
 
 def test_print_header_binary_format() -> None:
@@ -72,7 +73,7 @@ format binary;
 class volVectorField;
 object genericObject;
 """
-    assert str(header) == expected_output
+    assert str(OfFile([header])) == expected_output
 
 
 def test_print_header_nondefault_version() -> None:
@@ -85,7 +86,7 @@ format ascii;
 class volVectorField;
 object genericObject;
 """
-    assert str(header) == expected_output
+    assert str(OfFile([header])) == expected_output
 
 
 def test_class_type() -> None:

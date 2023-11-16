@@ -18,7 +18,7 @@ class OfField(OfFile):
     dimensions: Dimensions
     internalData: UniformList | NonUniformList
     boundaryData: Mapping[OfBoundary, OfBoundaryCondition]
-    data: dict = field(init=False, repr=False)
+    header: Mapping = field(init=False, repr=False)
 
     def __post_init__(self) -> None:
         assert isinstance(self.dimensions, Dimensions)
@@ -40,14 +40,16 @@ class OfField(OfFile):
             else:
                 raise TypeError(f"unknown type of internalData: {self.internalData}")
 
-        header = OfHeader(
+        self.header = OfHeader(
             name=self.fieldName,
             classname=field_type,
         )
 
-        self.data = {
-            "FoamFile": header,
-            "dimensions": self.dimensions,
-            "internalField": self.internalData,
-            "boundaryField": self.boundaryData,
-        }
+        self.append(
+            {
+                "FoamFile": self.header,
+                "dimensions": self.dimensions,
+                "internalField": self.internalData,
+                "boundaryField": self.boundaryData,
+            }
+        )

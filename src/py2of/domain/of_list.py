@@ -1,10 +1,10 @@
 from collections.abc import Iterable
 from dataclasses import dataclass
 from enum import Enum
-from typing import Sequence
+from typing import Mapping, Sequence
 from numpy import ndarray
+from textwrap import indent
 
-from attr import field
 import numpy
 
 from py2of.domain.of_tensor import OfTensor
@@ -35,9 +35,6 @@ class OfList:
             self.elements, Sequence | ndarray
         ), "'elements' has to be a Sequence"
         assert all(
-            isinstance(x, int | float | OfVector | OfTensor) for x in self.elements
-        ), "'elements' has to be Sequence of 'int', 'float', 'OfVector' or 'OfTensor'"
-        assert all(
             isinstance(x, type(self.elements[0])) for x in self.elements
         ), "All elements of parameter 'elements' has to be of the same type"
         assert isinstance(
@@ -65,12 +62,35 @@ class OfList:
                 string += f"<{self.element_type.value}>\n"
         string += f"{len(self)}\n(\n"
         for i in self.elements:
-            string += f"{i}\n"
+            if isinstance(i, Mapping):
+                OfList.print_mapping(i)
+            else:
+                string += f"{i}\n"
         string += ");"
         return string
 
     def __len__(self) -> int:
         return len(self.elements)
+
+    @staticmethod
+    def print_mapping(mapping):
+        string = ""
+        for key, value in mapping.items():
+            if callable(key):
+                key = key()
+            if callable(value):
+                value = value()
+            if isinstance(value, Mapping):
+                string += f"{key}\n"
+                string += "{\n"
+                string += indent(OfList.print_mapping(value), "    ")
+                string += "}\n"
+            elif isinstance(value, (OfList, UniformList, NonUniformList)):
+                string += f"{key} {value}\n"
+            else:
+                string += f"{key} {value};\n"
+
+        return string
 
     @classmethod
     def from_components(

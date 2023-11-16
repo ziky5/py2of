@@ -36,7 +36,13 @@ def test_fixed_value_nonuniform_value_scalar():
 
 def test_boundary_field():
     of_file = OfFile(
-        {"boundaryField": {"movingWall": FixedValue(UniformList(OfVector([1, 0, 0])))}}
+        [
+            {
+                "boundaryField": {
+                    "movingWall": FixedValue(UniformList(OfVector([1, 0, 0])))
+                }
+            }
+        ]
     )
 
     should_be = """\

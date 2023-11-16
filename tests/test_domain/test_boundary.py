@@ -14,7 +14,7 @@ def test_boundary_as_key():
 
 def test_boundary_usage_with_offile():
     boundary = OfBoundary(label="wall")
-    offile = OfFile({"boundaryField": {boundary: "uniform 0"}})
+    offile = OfFile([{"boundaryField": {boundary: "uniform 0"}}])
     should_be = """\
 boundaryField
 {
