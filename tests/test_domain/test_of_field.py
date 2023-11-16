@@ -266,8 +266,8 @@ def test_boundaryField_type() -> None:
 
 
 def test_proper_offield_usage():
-    bc_wall = OfBoundary("BC_wall")
-    bc_inlet = OfBoundary("BC_inlet")
+    bc_wall = OfBoundary(label="BC_wall")
+    bc_inlet = OfBoundary(label="BC_inlet")
 
     field = OfField(
         fieldName="genericObject",
@@ -278,7 +278,7 @@ def test_proper_offield_usage():
             bc_inlet: ZeroGradient(),
         },
     )
-    
+
     expected_output = """\
 FoamFile
 {
