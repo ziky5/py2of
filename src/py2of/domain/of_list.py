@@ -10,42 +10,45 @@ import numpy
 from py2of.domain.of_tensor import OfTensor
 from py2of.domain.of_vector import OfVector
 
-
 class ElementType(Enum):
-    SCALAR = "scalar"
-    VECTOR = "vector"
-    TENSOR = "tensor"
-
+    Scalar = "scalar"
+    Vector = "vector"
+    Tensor = "tensor"
+    Label = "label"
 
 @dataclass()
 class OfList:
-    name: str
-    values: list[int | float | OfVector | OfTensor]
-    values_type: ElementType = field(init=False)
+    name: str | None                                                # TODO - name not mandatory
+    elements: Sequence[int | float | OfVector | OfTensor]           # TODO - OfList can be sequence of anything
+    element_type: ElementType | None = None
+    write_header: bool = True
 
     def __post_init__(self):
-        assert isinstance(self.values, (Sequence, ndarray))
+        assert isinstance(self.name, str | None),  "'name' has to be of type 'str' or 'None'"
+        assert isinstance(self.elements, Sequence), "'elements' has to be a Sequence"
+        assert all(isinstance(x, int | float | OfVector | OfTensor) for x in self.elements), "'elements' has to be Sequence of 'int', 'float', 'OfVector' or 'OfTensor'"
+        assert all(isinstance(x, type(self.elements[0])) for x in self.elements), "All elements of parameter 'elements' has to be of the same type"
+        assert isinstance(self.element_type, ElementType | None), "'element_type' has to of type 'ElementType'"
+        assert isinstance(self.write_header, bool), "'write_header' has to be of type 'bool'"
 
-        is_scalar = False
-        try:
-            float(self.values[0])
-            is_scalar = True
-        except:
-            pass
-
-        if is_scalar:
-            self.values_type = ElementType.SCALAR
-        elif isinstance(self.values[0], OfVector):
-            self.values_type = ElementType.VECTOR
-        elif isinstance(self.values[0], OfTensor):
-            self.values_type = ElementType.TENSOR
-        else:
-            raise TypeError(f"Unknown type of list: {self.values}")
+        if not self.element_type:
+            if isinstance(self.elements[0], int | float):
+                self.element_type = ElementType.Scalar
+            elif isinstance(self.elements[0], OfVector):
+                self.element_type = ElementType.Vector
+            elif isinstance(self.elements[0], OfTensor):
+                self.element_type = ElementType.Tensor
 
     def __str__(self) -> str:
-        string = f"{self.name}"
-        string += f"\tList<{self.values_type.value}>\n{len(self)}\n(\n"
-        for i in self.values:
+        string = ""
+        if self.write_header:
+            if self.name:
+                string += f"{self.name}\t"
+            string += "List"
+            if self.element_type:
+                string += f"<{self.element_type.value}>\n"
+        string += f"{len(self)}\n(\n"
+        for i in self.elements:
             string += f"{i}\n"
         string += ");"
         return string

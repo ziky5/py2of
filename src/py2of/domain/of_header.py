@@ -9,6 +9,7 @@ class FieldType(Enum):
     ScalarField = "volScalarField"
     VectorField = "volVectorField"
     TensorField = "volTensorField"
+    RegIOObject = "regIOobject"
 
 
 class DataFormat(Enum):

@@ -1,6 +1,6 @@
 import pytest
 
-from py2of.domain.of_list import OfList
+from py2of.domain.of_list import OfList, ElementType
 from py2of.domain.of_tensor import OfTensor
 from py2of.domain.of_vector import OfVector
 
@@ -62,9 +62,81 @@ listName\tList<tensor>
 """
     assert str(array) == expected
 
+def test_print_vector_noname() -> None:
+    array = OfList(
+        None, [OfVector(x=1.1, y=5.0, z=0.0), OfVector(x=1.0, y=4.0, z=2.5)]
+    )
+    expected = """\
+List<vector>
+2
+(
+(1.1 5.0 0.0)
+(1.0 4.0 2.5)
+);\
+"""
+    assert str(array) == expected
+
+def test_print_elementtype_label() -> None:
+    array = OfList(
+        'listName', [1,2,3,4], element_type=ElementType.Label
+    )
+    expected = """\
+listName\tList<label>
+4
+(
+1
+2
+3
+4
+);\
+"""
+    assert str(array) == expected
+
+def test_print_scalar_no_header() -> None:
+    array = OfList(
+        'listName', [1,2,3,4], write_header=False
+    )
+    expected = """\
+4
+(
+1
+2
+3
+4
+);\
+"""
+    assert str(array) == expected
+
+def test_assert_str_list() -> None:
+    with pytest.raises(AssertionError):
+        OfList("listName", ['1', '2', '3'])
+
+def test_assert_list_list() -> None:
+    with pytest.raises(AssertionError):
+        OfList("listName", [(1, 2, 3), (4, 5, 6), (7, 8, 9)])
+
+def test_assert_tensor_list() -> None:
+    with pytest.raises(AssertionError):
+        OfList("listName", [(1, 2, 3, 4, 5, 6, 7, 8, 9), (11, 12, 13, 14, 15, 16, 17, 18, 19), (21, 22, 23, 24, 25, 26, 27, 28, 29)])
+
+def test_assert_name() -> None:
+    with pytest.raises(AssertionError):
+        OfList(1, [1, 2, 3])
+
+def test_assert_different_types() -> None:
+    with pytest.raises(AssertionError):
+        OfList("listName", [1, 2, OfVector(x=1, y=2, z=3)])
+
+def test_assert_element_type() -> None:
+    with pytest.raises(AssertionError):
+        OfList("listName", [1, 2, 3], element_type='scalar')
+
+def test_assert_write_header() -> None:
+    with pytest.raises(AssertionError):
+        OfList("listName", [1, 2, 3], write_header=None)
 
 def test_print_str() -> None:
-    with pytest.raises(TypeError):
+    with pytest.raises(AssertionError):
         array = OfList("listName", ["aaa"])  # type: ignore
         str(array)
 
@@ -75,6 +147,7 @@ def test_nonuniform_scalar_oflist_from_list() -> None:
 nonuniform\tList<scalar>
 4
 (
+1.0
 1.0
 2.3
 8.0
@@ -149,6 +222,7 @@ genericOfList\tList<scalar>
 3
 (
 1.0
+1.0
 2.3
 8.0
 );"""
@@ -164,6 +238,9 @@ def test_type_in_list_oflist_from_list() -> None:
     with pytest.raises(AssertionError):
         oflist = OfList.from_components([["1", "2.3", "8"]])
 
+def test_sublists_present_oflist_from_list() -> None:
+    with pytest.raises(AssertionError):
+        oflist = OfList.from_components_lists([1.0, 2.3, 8.0])
 
 def test_sublists_length_oflist_from_list() -> None:
     with pytest.raises(ValueError):
