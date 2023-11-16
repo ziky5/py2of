@@ -41,8 +41,8 @@ class OfField(OfFile):
                 raise TypeError(f"unknown type of internalData: {self.internalData}")
 
         header = OfHeader(
-            name = self.fieldName,
-            classname = self.fieldclass,
+            name=self.fieldName,
+            classname=field_type,
         )
 
         self.data = {
