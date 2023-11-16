@@ -6,10 +6,10 @@ from pathlib import Path
 from typing import Any
 
 import click
+from py2of.domain.of_file import OfFile
 
 from py2of.logging import set_logger
 from py2of.logging import setup_logging
-from py2of.service.case_dumper import CaseDumper
 
 
 logger = logging.getLogger(__name__)
@@ -56,7 +56,10 @@ def main(log: str, logging_yaml: str | Path) -> None:
 @click.option("--case-mod-attr", default="case")
 def dump(content_file: Path, dump_dir: Path, case_mod_attr: str) -> None:
     with ImportModule(content_file) as module:
-        CaseDumper(getattr(module, case_mod_attr)).dump(dump_dir)
+        case = getattr(module, case_mod_attr)
+        for filename, content in case.items():
+            of_file = OfFile(content)
+            of_file.write(Path(dump_dir) / filename)
 
 
 if __name__ == "__main__":

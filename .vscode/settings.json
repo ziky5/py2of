@@ -1,5 +1,7 @@
 {
-  "python.testing.pytestArgs": ["/workspace/py2of/tests"],
+  "python.testing.pytestArgs": [
+    "tests"
+  ],
   "python.testing.unittestEnabled": false,
   "python.testing.pytestEnabled": true,
   "python.defaultInterpreterPath": "/workspace/.pyenv_mirror/poetry/virtualenvs/py2of-2J8uxQIy-py3.10/bin/python"
