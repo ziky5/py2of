@@ -126,3 +126,22 @@ class NonUniformList:
 
     def __str__(self) -> str:
         return str(OfList("nonuniform", self.values))
+    
+    @classmethod
+    def from_components(
+        cls, lst: Sequence
+    ) -> "NonUniformList":
+        lst = numpy.array(lst).T
+        assert lst.ndim == 1 or lst.shape[1] in [
+            3,
+            9,
+        ], f"Input sequence must have 1 element (scalar list), 3 elements (vector list) or 9 elements (tensor list). The input list has {lst.shape[1]} elements."
+
+        if lst.ndim == 1:
+            elements = lst.T
+        elif lst.shape[1] == 3:
+            elements = [OfVector(lst[i, :]) for i in range(lst.shape[0])]
+        else:
+            elements = [OfTensor.from_sequence(lst[i, :]) for i in range(lst.shape[0])]
+
+        return NonUniformList(values=elements)
