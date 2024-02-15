@@ -22,25 +22,23 @@ class OfObject:  # TODO tests
         assert isinstance(self.className, FieldType)
 
         self.header = OfFile(
-            {
+            [{
                 "FoamFile": OfHeader(
                     name=self.objectName,
                     classname=self.className,
                 ),
-            }
+            }]
         )
 
         amended_data_dct = {}
         for key, item in self.internalData.items():
-            amended_data_dct[key] = OfFile(
-                {
-                    "type": "cellZone",
-                    "cellLabels": OfList(
-                        name=None, elements=item, element_type=ElementType.Label
-                    ),
-                }
-            )
-        self.amended_data = OfFile(amended_data_dct)
+            amended_data_dct[key] ={
+                "type": "cellZone",
+                "cellLabels": OfList(
+                    name=None, elements=item, element_type=ElementType.Label
+                ),
+            }
+        self.amended_data = OfFile([amended_data_dct])
 
     def __str__(self) -> str:
         string = ""
